@@ -2,6 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
+\usepackage[fleqn]{amsmath}
 
 \title{
   Procesadores de Lenguajes\\
@@ -77,6 +78,23 @@ Dispondremos de las siguientes clases léxicas:
 
 \chapter*{Especificación formal}
 \addcontentsline{toc}{chapter}{Especificación formal}
+
+\begin{itemize}
+  \item \textbf{Definiciones auxiliares:}
+  %%\begin{flalign}
+  $$ letra \longrightarrow a|...|z|A|...|Z $$
+  $$ digitoPositivo \longrightarrow 1|...|9 $$
+  $$ digito \longrightarrow 0|digitoPositivo $$
+  $$ parteDecimal \longrightarrow .digito*digitoPositivo $$
+  $$ parteExponencial \longrightarrow (e|E) (+|-|\oslash) digito* $$
+  %%\end{flalign}
+  \item \textbf{Definiciones léxicas:}
+  %%\begin{flalign}
+  $$ iden \longrightarrow letra(letra|digito|\_)* $$
+  $$ numero \longrightarrow digito* (\oslash|parteDecimal) (\oslash|parteExponencial) $$
+  %%\end{flalign}
+  
+\end{itemize}
 
 \chapter*{Diagrama de transiciones}
 \addcontentsline{toc}{chapter}{Diagrama de transiciones}
