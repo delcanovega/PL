@@ -36,7 +36,7 @@ Dispondremos de las siguientes clases léxicas:
   \item Nombres de variable: $iden$ serán los identificadores de las variables que declaremos. Deberan empezar por una letra, y pueden contener letras, dígitos o subrayados (\_).
   \item Separadores: dispondremos de dos tipos, uno para separar la seccion de declaraciones de la sección de instrucciones, y otro para separar las declaraciones o instrucciones entre ellas.
   \begin{itemize}
-    \item $coma$: será el separador de declaraciones o instrucciones entre ellas mismas (;).
+    \item $pcoma$: será el separador de declaraciones o instrucciones entre ellas mismas (;).
     \item $end$: indicará el final de la sección de declaraciones y el comienzo de la sección de instrucciones (\&\&).
   \end{itemize} 
   \item Expresiones: las usaremos para trabajar en la sección de instrucciones. Tenemos dos tipos.
@@ -50,7 +50,7 @@ Dispondremos de las siguientes clases léxicas:
   \end{enumerate}
   \item Operadores: para la sección de instrucciones dispondremos de los siguientes operadores.
   \begin{enumerate}
-    \item Operador de asignación: $igual (=)$ entre una variable y una expresión.
+    \item Operador de asignación: $igual$ (=) entre una variable y una expresión.
     \item Operadores aritméticos:
     \begin{itemize}
       \item $mas$: operador de suma (+).
@@ -73,6 +73,8 @@ Dispondremos de las siguientes clases léxicas:
       \item $equiv$: comprueba si dos expresiones tienen el mismo valor (==).
       \item $noEquiv$: comprueba si dos expresiones tienen distinto valor (!=).
     \end{itemize}
+    \item Operador unitario: $neg$ (-) delante de una expresión numérica.
+    \item Paréntesis: modifican la prioridad de las operaciones entre $parAb$ ( ( ) y $parCe$ ( ) ).
   \end{enumerate}
 \end{enumerate}
 
