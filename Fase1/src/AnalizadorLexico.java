@@ -205,7 +205,7 @@ public class AnalizadorLexico {
       }
    }   
    private UnidadLexica unidadNumero() {
-	   return new UnidadLexicaUnivaluada(filaInicio, columnaInicio,ClaseLexica.NUM);
+	   return new UnidadLexicaUnivaluada(filaInicio, columnaInicio,ClaseLexica.NUMERO);
    }
    private UnidadLexica unidadMas() {
      return new UnidadLexicaUnivaluada(filaInicio,columnaInicio,ClaseLexica.MAS);     
