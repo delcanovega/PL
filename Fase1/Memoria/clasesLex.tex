@@ -1,0 +1,54 @@
+\section{Clases léxicas}
+
+Dispondremos de las siguientes clases léxicas:
+
+\begin{enumerate}
+  \item Nombres de tipo: serán palabras reservadas en nuestro analizador léxico.
+  \begin{itemize}
+    \item $num$: palabra reservada para tipar las variables numéricas.
+    \item $bool$: palabra reservada para tipar las variables booleanas.
+  \end{itemize}
+  \item Nombres de variable: $iden$ serán los identificadores de las variables que declaremos. Deberán empezar por una letra, y pueden contener letras, dígitos o subrayados (\_).
+  \item Separadores: dispondremos de dos tipos, uno para separar la sección de declaraciones de la sección de instrucciones, y otro para separar las declaraciones o instrucciones entre ellas.
+  \begin{itemize}
+    \item $pcoma$: será el separador de declaraciones o instrucciones entre ellas mismas (;).
+    \item $end$: indicará el final de la sección de declaraciones y el comienzo de la sección de instrucciones (\&\&).
+  \end{itemize} 
+  \item Expresiones: las usaremos para trabajar en la sección de instrucciones. Tenemos dos tipos.
+  \begin{enumerate}
+    \item Expresiones lógicas: de nuevo serán palabras reservadas.
+    \begin{itemize}
+      \item $true$: valor lógico de verdad (true).
+      \item $false$: (false) contrario de $true$.
+    \end{itemize}
+    \item Expresiones numéricas: $numero$, podrán comenzar por un signo (+ o -), seguido de uno o más dígitos. Si se tratase de números reales, aparecería un punto (.) seguido de uno o más dígitos. Finalmente, para ambos casos, podría aparecer una parte exponencial, con una $e$ o $E$ seguida opcionalmente de un signo (+ o -) y uno o más dígitos. 
+  \end{enumerate}
+  \item Operadores: para la sección de instrucciones dispondremos de los siguientes operadores.
+  \begin{enumerate}
+    \item Operador de asignación: $igual$ (=) entre una variable y una expresión.
+    \item Operadores aritméticos:
+    \begin{itemize}
+      \item $mas$: operador de suma (+).
+      \item $menos$: operador de resta y menos unario (-).
+      \item $por$: operador de multiplicación (*).
+      \item $div$: operador de división (/).
+    \end{itemize}
+    \item Operadores lógicos: también serán palabras reservadas.
+    \begin{itemize}
+      \item $and$: operador de conjunción.
+      \item $or$: operador de disyunción.
+      \item $not$: operador de negación.
+    \end{itemize}
+    \item Operadores relacionales.
+    \begin{itemize}
+      \item $mayor$: comprueba si una expresión es estrictamente mayor a otra (>).
+      \item $menor$: comprueba si una expresión es estrictamente menor a otra (<).
+      \item $mayorIgual$: comprueba si una expresión es mayor o igual a otra (>=).
+      \item $menorIgual$: comprueba si una expresión es menor o igual a otra (<=).
+      \item $equiv$: comprueba si dos expresiones tienen el mismo valor (==).
+      \item $noEquiv$: comprueba si dos expresiones tienen distinto valor (!=).
+    \end{itemize}
+    
+    \item Paréntesis: modifican la prioridad de las operaciones entre $parAb$ ( $($ ) y $parCe$ ( $)$ ).
+  \end{enumerate}
+\end{enumerate}
