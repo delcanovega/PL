@@ -1,0 +1,77 @@
+GIC ORIGINAL
+
+	S  -> Ds && Is
+
+
+	Ds -> D | D; Ds
+	D  -> T identificador
+	T  -> num | bool
+
+
+	Is -> I | I; Is
+	I  -> identificador = E0
+
+	E0 -> E0 + E1 | E0 - E1 | E1
+	E1 -> E2 and E1 | E2 or E2 | E2
+	E2 -> E3 OP E3 | E3
+	E3 -> E3 * E4 | E3 / E4 | E4
+	E4 -> - E4 | not E5 | E5
+	E5 -> (E0) | identificador | numReal | true | false
+
+	OP -> < | > | <= | >= | == | !=
+
+
+TRANSFORMACIÓN EN LL(1)
+
+Eliminación de recursión por la izquierda:
+
+	S  -> Ds && Is
+
+
+	Ds -> D | D; Ds
+	D  -> T identificador
+	T  -> num | bool
+
+
+	Is -> I | I; Is
+	I  -> identificador = E0
+
+	E0  -> E1 E0'
+	E0' -> + E1 E0' | - E1 E0' | epsilon
+	E1  -> E2 and E1 | E2 or E2 | E2
+	E2  -> E3 OP E3 | E3
+	E3  -> E4 E3'
+	E3' -> * E4 E3' | / E4 E3' | epsilon
+	E4  -> - E4 | not E5 | E5
+	E5  -> (E0) | identificador | numReal | true | false
+
+	OP -> < | > | <= | >= | == | !=
+	
+Eliminación de factores a la izquierda:
+
+	S  -> Ds && Is
+	
+	
+	Ds -> D FD
+	D  -> T identificador
+	FD -> epsilon | ; Ds
+	T  -> num | bool
+
+
+	Is -> I FI
+	I  -> identificador = E0
+	FI -> epsilon | ; Is
+
+	E0  -> E1 E0'
+	E0' -> + E1 E0' | - E1 E0' | epsilon
+	E1  -> E2 FE1
+	FE1 -> and E1 | or E1 | epsilon
+	E2  -> E3 FE2
+	FE2 -> OP E3 | epsilon
+	E3  -> E4 E3'
+	E3' -> * E4 E3' | / E4 E3' | epsilon
+	E4  -> - E4 | not E5 | E5
+	E5  -> (E0) | identificador | numReal | true | false
+
+	OP -> < | > | <= | >= | == | !=
+
