@@ -77,8 +77,8 @@ iden = {letra}({letra}|{digito}|\_)*
 {and}       		      {return ops.unidadAnd();}
 {or}          			  {return ops.unidadOr();}
 {not} 					  {return ops.unidadNot();}
-{mayor}         		  {return ops.unidadMenor();}
-{menor}         		  {return ops.unidadMayor();}
+{menor}         		  {return ops.unidadMenor();}
+{mayor}         		  {return ops.unidadMayor();}
 {mayorIgual}			  {return ops.unidadMayorIgual();}
 {menorIgual}         	  {return ops.unidadMenorIgual();}
 {equivalente}         	  {return ops.unidadEquiv();}

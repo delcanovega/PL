@@ -3,7 +3,6 @@ package JLex;
 import errors.GestionErroresTiny;
 
 public class AnalizadorLexicoTiny {
-	
 	private final int YY_BUFFER_SIZE = 512;
 	private final int YY_F = -1;
 	private final int YY_NO_STATE = -1;
@@ -52,7 +51,8 @@ public class AnalizadorLexicoTiny {
 		if (null == instream) {
 			throw (new Error("Error: Bad input stream initializer."));
 		}
-		yy_reader = new java.io.BufferedReader(new java.io.InputStreamReader(instream));
+		yy_reader = new java.io.BufferedReader(new java.io.InputStreamReader(
+				instream));
 	}
 
 	private AnalizadorLexicoTiny() {
@@ -97,7 +97,8 @@ public class AnalizadorLexicoTiny {
 			yy_buffer_start = 0;
 			yy_buffer_read = j;
 			yy_buffer_index = j;
-			next_read = yy_reader.read(yy_buffer, yy_buffer_read, yy_buffer.length - yy_buffer_read);
+			next_read = yy_reader.read(yy_buffer, yy_buffer_read,
+					yy_buffer.length - yy_buffer_read);
 			if (-1 == next_read) {
 				return YY_EOF;
 			}
@@ -108,7 +109,8 @@ public class AnalizadorLexicoTiny {
 			if (yy_buffer_index >= yy_buffer.length) {
 				yy_buffer = yy_double(yy_buffer);
 			}
-			next_read = yy_reader.read(yy_buffer, yy_buffer_read, yy_buffer.length - yy_buffer_read);
+			next_read = yy_reader.read(yy_buffer, yy_buffer_read,
+					yy_buffer.length - yy_buffer_read);
 			if (-1 == next_read) {
 				return YY_EOF;
 			}
@@ -118,9 +120,11 @@ public class AnalizadorLexicoTiny {
 	}
 
 	private void yy_move_end() {
-		if (yy_buffer_end > yy_buffer_start && '\n' == yy_buffer[yy_buffer_end - 1])
+		if (yy_buffer_end > yy_buffer_start
+				&& '\n' == yy_buffer[yy_buffer_end - 1])
 			yy_buffer_end--;
-		if (yy_buffer_end > yy_buffer_start && '\r' == yy_buffer[yy_buffer_end - 1])
+		if (yy_buffer_end > yy_buffer_start
+				&& '\r' == yy_buffer[yy_buffer_end - 1])
 			yy_buffer_end--;
 	}
 
@@ -147,13 +151,15 @@ public class AnalizadorLexicoTiny {
 
 	private void yy_to_mark() {
 		yy_buffer_index = yy_buffer_end;
-		yy_at_bol = (yy_buffer_end > yy_buffer_start) && ('\r' == yy_buffer[yy_buffer_end - 1]
-				|| '\n' == yy_buffer[yy_buffer_end - 1] || 2028/* LS */ == yy_buffer[yy_buffer_end - 1]
-				|| 2029/* PS */ == yy_buffer[yy_buffer_end - 1]);
+		yy_at_bol = (yy_buffer_end > yy_buffer_start)
+				&& ('\r' == yy_buffer[yy_buffer_end - 1]
+						|| '\n' == yy_buffer[yy_buffer_end - 1]
+						|| 2028/* LS */== yy_buffer[yy_buffer_end - 1] || 2029/* PS */== yy_buffer[yy_buffer_end - 1]);
 	}
 
 	private java.lang.String yytext() {
-		return (new java.lang.String(yy_buffer, yy_buffer_start, yy_buffer_end - yy_buffer_start));
+		return (new java.lang.String(yy_buffer, yy_buffer_start, yy_buffer_end
+				- yy_buffer_start));
 	}
 
 	private int yylength() {
@@ -172,7 +178,8 @@ public class AnalizadorLexicoTiny {
 
 	private final int YY_E_INTERNAL = 0;
 	private final int YY_E_MATCH = 1;
-	private java.lang.String yy_error_string[] = { "Error: Internal error.\n", "Error: Unmatched input.\n" };
+	private java.lang.String yy_error_string[] = { "Error: Internal error.\n",
+			"Error: Unmatched input.\n" };
 
 	private void yy_error(int code, boolean fatal) {
 		java.lang.System.out.print(yy_error_string[code]);
@@ -200,7 +207,8 @@ public class AnalizadorLexicoTiny {
 					continue;
 				}
 				commaIndex = st.indexOf(',');
-				workString = (commaIndex == -1) ? st : st.substring(0, commaIndex);
+				workString = (commaIndex == -1) ? st : st.substring(0,
+						commaIndex);
 				st = st.substring(commaIndex + 1);
 				colonIndex = workString.indexOf(':');
 				if (colonIndex == -1) {
@@ -218,21 +226,63 @@ public class AnalizadorLexicoTiny {
 		return res;
 	}
 
-	private int yy_acpt[] = { /* 0 */ YY_NOT_ACCEPT, /* 1 */ YY_NO_ANCHOR, /* 2 */ YY_NO_ANCHOR, /* 3 */ YY_NO_ANCHOR,
-			/* 4 */ YY_NO_ANCHOR, /* 5 */ YY_NO_ANCHOR, /* 6 */ YY_NO_ANCHOR, /* 7 */ YY_NO_ANCHOR,
-			/* 8 */ YY_NO_ANCHOR, /* 9 */ YY_NO_ANCHOR, /* 10 */ YY_NO_ANCHOR, /* 11 */ YY_NO_ANCHOR,
-			/* 12 */ YY_NO_ANCHOR, /* 13 */ YY_NO_ANCHOR, /* 14 */ YY_NO_ANCHOR, /* 15 */ YY_NO_ANCHOR,
-			/* 16 */ YY_NO_ANCHOR, /* 17 */ YY_NO_ANCHOR, /* 18 */ YY_NO_ANCHOR, /* 19 */ YY_NO_ANCHOR,
-			/* 20 */ YY_NO_ANCHOR, /* 21 */ YY_NO_ANCHOR, /* 22 */ YY_NO_ANCHOR, /* 23 */ YY_NO_ANCHOR,
-			/* 24 */ YY_NO_ANCHOR, /* 25 */ YY_NO_ANCHOR, /* 26 */ YY_NO_ANCHOR, /* 27 */ YY_NO_ANCHOR,
-			/* 28 */ YY_NOT_ACCEPT, /* 29 */ YY_NO_ANCHOR, /* 30 */ YY_NO_ANCHOR, /* 31 */ YY_NO_ANCHOR,
-			/* 32 */ YY_NO_ANCHOR, /* 33 */ YY_NOT_ACCEPT, /* 34 */ YY_NO_ANCHOR, /* 35 */ YY_NO_ANCHOR,
-			/* 36 */ YY_NO_ANCHOR, /* 37 */ YY_NOT_ACCEPT, /* 38 */ YY_NO_ANCHOR, /* 39 */ YY_NO_ANCHOR,
-			/* 40 */ YY_NO_ANCHOR, /* 41 */ YY_NO_ANCHOR, /* 42 */ YY_NO_ANCHOR, /* 43 */ YY_NO_ANCHOR,
-			/* 44 */ YY_NO_ANCHOR, /* 45 */ YY_NO_ANCHOR, /* 46 */ YY_NO_ANCHOR, /* 47 */ YY_NO_ANCHOR,
-			/* 48 */ YY_NO_ANCHOR, /* 49 */ YY_NO_ANCHOR, /* 50 */ YY_NO_ANCHOR, /* 51 */ YY_NO_ANCHOR,
-			/* 52 */ YY_NO_ANCHOR };
-	private int yy_cmap[] = unpackFromString(1, 65538,
+	private int yy_acpt[] = {
+	/* 0 */YY_NOT_ACCEPT,
+	/* 1 */YY_NO_ANCHOR,
+	/* 2 */YY_NO_ANCHOR,
+	/* 3 */YY_NO_ANCHOR,
+	/* 4 */YY_NO_ANCHOR,
+	/* 5 */YY_NO_ANCHOR,
+	/* 6 */YY_NO_ANCHOR,
+	/* 7 */YY_NO_ANCHOR,
+	/* 8 */YY_NO_ANCHOR,
+	/* 9 */YY_NO_ANCHOR,
+	/* 10 */YY_NO_ANCHOR,
+	/* 11 */YY_NO_ANCHOR,
+	/* 12 */YY_NO_ANCHOR,
+	/* 13 */YY_NO_ANCHOR,
+	/* 14 */YY_NO_ANCHOR,
+	/* 15 */YY_NO_ANCHOR,
+	/* 16 */YY_NO_ANCHOR,
+	/* 17 */YY_NO_ANCHOR,
+	/* 18 */YY_NO_ANCHOR,
+	/* 19 */YY_NO_ANCHOR,
+	/* 20 */YY_NO_ANCHOR,
+	/* 21 */YY_NO_ANCHOR,
+	/* 22 */YY_NO_ANCHOR,
+	/* 23 */YY_NO_ANCHOR,
+	/* 24 */YY_NO_ANCHOR,
+	/* 25 */YY_NO_ANCHOR,
+	/* 26 */YY_NO_ANCHOR,
+	/* 27 */YY_NO_ANCHOR,
+	/* 28 */YY_NOT_ACCEPT,
+	/* 29 */YY_NO_ANCHOR,
+	/* 30 */YY_NO_ANCHOR,
+	/* 31 */YY_NO_ANCHOR,
+	/* 32 */YY_NO_ANCHOR,
+	/* 33 */YY_NOT_ACCEPT,
+	/* 34 */YY_NO_ANCHOR,
+	/* 35 */YY_NO_ANCHOR,
+	/* 36 */YY_NO_ANCHOR,
+	/* 37 */YY_NOT_ACCEPT,
+	/* 38 */YY_NO_ANCHOR,
+	/* 39 */YY_NO_ANCHOR,
+	/* 40 */YY_NO_ANCHOR,
+	/* 41 */YY_NO_ANCHOR,
+	/* 42 */YY_NO_ANCHOR,
+	/* 43 */YY_NO_ANCHOR,
+	/* 44 */YY_NO_ANCHOR,
+	/* 45 */YY_NO_ANCHOR,
+	/* 46 */YY_NO_ANCHOR,
+	/* 47 */YY_NO_ANCHOR,
+	/* 48 */YY_NO_ANCHOR,
+	/* 49 */YY_NO_ANCHOR,
+	/* 50 */YY_NO_ANCHOR,
+	/* 51 */YY_NO_ANCHOR,
+	/* 52 */YY_NO_ANCHOR };
+	private int yy_cmap[] = unpackFromString(
+			1,
+			65538,
 			"34:8,1:3,34:2,1,34:18,1,28,34:4,20,34,29,30,23,22,9,8,11,24,10:10,34,19,27,"
 					+ "21,26,34:2,31:4,12,31:21,34:4,33,34,17,5,32,25,15,16,32:5,7,4,2,6,32:2,14,1"
 					+ "8,13,3,32:5,34:65413,0:2")[0];
@@ -241,7 +291,9 @@ public class AnalizadorLexicoTiny {
 			"0,1:2,2,3,4,1:2,5,3,1:2,6,7,1:2,8,1:5,8:6,9,3,10,11,12,13,14,15,16,11,17,8,"
 					+ "18,19,20,21,22,23,24,25,8,26,27,28,29")[0];
 
-	private int yy_nxt[][] = unpackFromString(30, 35,
+	private int yy_nxt[][] = unpackFromString(
+			30,
+			35,
 			"1,2,3,48:2,49,30,48,4,29,5,6,48,50,48:2,51,52,48,7,32,8,9,10,11,48,12,13,36"
 					+ ",14,15,48:2,6:2,-1:37,48,34,48:2,38,48,-1:2,39,-1,39,48:6,-1:6,48,-1:5,39,4"
 					+ "8,39,-1:11,5,-1:33,28,5,33,28,-1:2,28,-1:40,18,-1:34,19,-1:34,20,-1:15,48:6"

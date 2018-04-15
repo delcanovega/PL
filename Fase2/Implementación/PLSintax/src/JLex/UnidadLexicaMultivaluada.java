@@ -1,7 +1,6 @@
 package JLex;
 
 public class UnidadLexicaMultivaluada extends UnidadLexica {
-	
 	private String lexema;
 
 	public UnidadLexicaMultivaluada(int fila, ClaseLexica clase, String lexema) {
@@ -14,6 +13,7 @@ public class UnidadLexicaMultivaluada extends UnidadLexica {
 	}
 
 	public String toString() {
-		return "[clase:" + clase() + ",fila:" + fila() + ",col:" + columna() + ",lexema:" + lexema() + "]";
+		return "[clase:" + clase() + ",fila:" + fila() + ",col:" + columna()
+				+ ",lexema:" + lexema() + "]";
 	}
 }

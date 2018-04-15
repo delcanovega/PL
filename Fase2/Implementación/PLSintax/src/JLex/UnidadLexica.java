@@ -1,7 +1,6 @@
 package JLex;
 
 public abstract class UnidadLexica {
-	
 	private ClaseLexica clase;
 	private int fila;
 	private int columna;

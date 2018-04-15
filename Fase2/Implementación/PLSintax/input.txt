@@ -2,4 +2,4 @@ num gg;
 bool patatas
 &&
 gg = (-00.40 * 341.2) + (12.4e+600 / 0e-340);
-patatas = 4 < 5 and 10 >= 7 or not false and 325 == 100 != true
+patatas = 4 < 5 and 10 >= 7 or not false and 325 - 100 != true
