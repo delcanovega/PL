@@ -208,7 +208,7 @@ public class AnalizadorSintacticoTiny {
 			break;
 		case OR:
 			empareja(ClaseLexica.OR);
-			E1();
+			E2();
 			break;
 		case MAS:
 		case MENOS:
