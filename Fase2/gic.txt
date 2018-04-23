@@ -65,7 +65,7 @@ Eliminación de factores a la izquierda:
 	E0  -> E1 E0'
 	E0' -> + E1 E0' | - E1 E0' | epsilon
 	E1  -> E2 FE1
-	FE1 -> and E1 | or E1 | epsilon
+	FE1 -> and E1 FE1 | or E2 FE1 | epsilon
 	E2  -> E3 FE2
 	FE2 -> OP E3 | epsilon
 	E3  -> E4 E3'
