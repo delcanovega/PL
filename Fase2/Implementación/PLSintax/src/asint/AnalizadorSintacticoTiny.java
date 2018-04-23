@@ -205,10 +205,12 @@ public class AnalizadorSintacticoTiny {
 		case AND:
 			empareja(ClaseLexica.AND);
 			E1();
+			RE1();
 			break;
 		case OR:
 			empareja(ClaseLexica.OR);
 			E2();
+			RE1();
 			break;
 		case MAS:
 		case MENOS:
