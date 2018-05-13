@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/jdelcano/Workspace/PL/Fase3/Implementación/CUP/lib/cup.jar"/>
+	<classpathentry kind="lib" path="/home/jdelcano/Workspace/PL/Fase3/Implementación/CUP/lib/JLex.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
