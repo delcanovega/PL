@@ -1,3 +1,4 @@
+package alex;
 
 public enum ClaseLexica {
 	NUM, BOOL, IDEN, NUMERO, PCOMA, END, TRUE, FALSE, 
