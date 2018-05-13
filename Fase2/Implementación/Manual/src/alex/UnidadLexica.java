@@ -1,13 +1,11 @@
-package JLex;
+package alex;
 
 public abstract class UnidadLexica {
 	private ClaseLexica clase;
 	private int fila;
-	private int columna;
 
 	public UnidadLexica(int fila, ClaseLexica clase) {
 		this.fila = fila;
-		this.columna = columna;
 		this.clase = clase;
 	}
 
@@ -19,9 +17,5 @@ public abstract class UnidadLexica {
 
 	public int fila() {
 		return fila;
-	}
-
-	public int columna() {
-		return columna;
 	}
 }

@@ -1,18 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package asint;
 
-import JLex.AnalizadorLexicoTiny;
-import JLex.ClaseLexica;
-import JLex.UnidadLexica;
+import alex.AnalizadorLexicoTiny;
+import alex.ClaseLexica;
+import alex.UnidadLexica;
 import errors.GestionErroresTiny;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AnalizadorSintacticoTiny {
 	private UnidadLexica anticipo;

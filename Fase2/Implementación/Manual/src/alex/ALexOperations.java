@@ -1,15 +1,14 @@
-package JLex;
-
-import JLex.ClaseLexica;
-import JLex.UnidadLexica;
-import JLex.UnidadLexicaMultivaluada;
-import JLex.UnidadLexicaUnivaluada;
+package alex;
 
 public class ALexOperations {
 	private AnalizadorLexicoTiny alex;
 
 	public ALexOperations(AnalizadorLexicoTiny alex) {
 		this.alex = alex;
+	}
+
+	public UnidadLexica unidadId() {
+		return new UnidadLexicaMultivaluada(alex.fila(), ClaseLexica.IDEN, alex.lexema());
 	}
 
 	public UnidadLexica unidadBool() {
@@ -41,8 +40,7 @@ public class ALexOperations {
 	}
 
 	public UnidadLexica unidadNumero() {
-		return new UnidadLexicaMultivaluada(alex.fila(), ClaseLexica.NUMERO,
-				alex.lexema());
+		return new UnidadLexicaMultivaluada(alex.fila(), ClaseLexica.NUMERO, alex.lexema());
 	}
 
 	public UnidadLexica unidadMas() {
@@ -109,13 +107,7 @@ public class ALexOperations {
 		return new UnidadLexicaUnivaluada(alex.fila(), ClaseLexica.EOF);
 	}
 
-	public UnidadLexica unidadId() {
-		return new UnidadLexicaMultivaluada(alex.fila(), ClaseLexica.IDEN,
-				alex.lexema());
-	}
-
 	public void error() {
-		System.err.println("***" + alex.fila() + " Caracter inesperado: "
-				+ alex.lexema());
+		System.err.println("***" + alex.fila() + " Caracter inesperado: " + alex.lexema());
 	}
 }

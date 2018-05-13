@@ -1,4 +1,4 @@
-package JLex;
+package alex;
 
 public class UnidadLexicaUnivaluada extends UnidadLexica {
 	public String lexema() {
@@ -10,7 +10,6 @@ public class UnidadLexicaUnivaluada extends UnidadLexica {
 	}
 
 	public String toString() {
-		return "[clase:" + clase() + ",fila:" + fila() + ",col:" + columna()
-				+ "]";
+		return "[clase: " + clase() + ", fila: " + fila() + "]";
 	}
 }

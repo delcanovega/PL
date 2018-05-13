@@ -15,7 +15,7 @@ import errors.GestionErroresTiny;
   public String lexema() {return yytext();}
   public int fila() {return yyline+1;}
   public void fijaGestionErrores(GestionErroresTiny errores) {
-   this.errores = errores;
+    this.errores = errores;
   }
 %}
 
@@ -32,6 +32,7 @@ digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
 parteDecimal = \.({digito})+
 parteExponencial = [e,E]([\+,\-])?{digito}+
+iden = {letra}({letra}|{digito}|\_)*
 numero = ([\+,\-])?{digito}+({parteDecimal})?({parteExponencial})? 
 separador = [ ,\t,\r,\b,\n]
 num = num
@@ -56,14 +57,13 @@ equivalente = \=\=
 noEquivalente = \!\=
 parentesisApertura = \(
 parentesisCierre = \)
-iden = {letra}({letra}|{digito}|\_)*
-
 
 
 %%
 {separador}               {}
 {num}                	  {return ops.unidadNum();}
 {bool}					  {return ops.unidadBool();}
+{iden}			          {return ops.unidadId();}
 {numero}         		  {return ops.unidadNumero();}
 {true}					  {return ops.unidadTrue();}
 {false}					  {return ops.unidadFalse();}
@@ -85,5 +85,4 @@ iden = {letra}({letra}|{digito}|\_)*
 {noEquivalente}           {return ops.unidadNoEquiv();}
 {parentesisApertura}      {return ops.unidadPAb();}
 {parentesisCierre}        {return ops.unidadPCe();}
-{iden}			          {return ops.unidadId();}
 [^]                       {ops.error();}  
