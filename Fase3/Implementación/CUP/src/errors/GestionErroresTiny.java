@@ -1,6 +1,7 @@
 package errors;
 
-import alex.ClaseLexica;
+import alex.UnidadLexica;
+import asint.ClaseLexica;
 
 public class GestionErroresTiny {
 	public void errorLexico(int fila, String lexema) {
@@ -14,6 +15,11 @@ public class GestionErroresTiny {
 			System.out.print(esperada + " ");
 		System.out.println();
 		System.exit(1);
+	}
+	
+	public void errorSintactico(UnidadLexica unidadLexica) {
+	    System.out.println("ERROR fila " + unidadLexica.fila() + ": Elemento inexperado " + unidadLexica.value);
+	    System.exit(1);
 	}
 
 	public void errorFatal(Exception e) {
