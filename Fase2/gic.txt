@@ -75,3 +75,45 @@ Eliminación de factores a la izquierda:
 
 	OP -> < | > | <= | >= | == | !=
 
+DIRECTORES
+	DIR(S  -> Ds && Is) = {num, bool}
+	DIR(Ds -> D FD) = {num, bool}
+	DIR(D -> T identificador) = {num, bool}
+	DIR(FD -> epsilon) = {&}
+	DIR(FD -> ; Ds) = {;}
+	DIR(T  -> num) = {num}
+	DIR(T  -> bool) = {bool}
+	DIR(Is -> I FI) = {identificador}
+	DIR(I  -> identificador = E0) = {identificador}
+	DIR(FI -> epsilon) = {|-}
+	DIR(FI -> ; Is) = {;}
+	DIR(E0  -> E1 E0') = {-, not, (, identificador, numReal, true, false}
+	DIR(E0' -> + E1 E0') = {+}
+	DIR(E0' -> - E1 E0') = {-}
+	DIR(E0' -> epsilon) = {),|-, ;}
+	DIR(E1  -> E2 FE1) = {-, not, (, identificador, numReal, true, false}
+	DIR(FE1 -> and E1 FE1) = {and}
+	DIR(FE1 -> or E2 FE1) = {or}
+	DIR(FE1 -> epsilon) = {+, -, ), |-, ;}
+	DIR(E2  -> E3 FE2) = {-, not, (, identificador, numReal, true, false}
+	DIR(FE2 -> OP E3) = {<, >, <=, >=, ==, !=}
+	DIR(FE2 -> epsilon) = {and, or, +, -, ), |-, ;}
+	DIR(E3  -> E4 E3') = {-, not, (, identificador, numReal, true, false}
+	DIR(E3' -> * E4 E3') = {*}
+	DIR(E3' -> / E4 E3') = {/}
+	DIR(E3' -> epsilon) = {<, >, <=, >=, ==, !=, and, or, +, -, ), |-, ;, not, (, identificador, numReal, true, false}
+	DIR(E4  -> - E4) = {-}
+	DIR(E4  -> not E5) = {not}
+	DIR(E4  -> E5) = {(, identificador, numReal, true, false}
+	DIR(E5  -> (E0)) = {(}
+	DIR(E5  -> identificador) = {identificador}
+	DIR(E5  -> numReal) = {numReal}
+	DIR(E5  -> true) = {true}
+	DIR(E5  -> false) = {false}
+	DIR(OP -> <) = {<}
+	DIR(OP -> >) = {>}
+	DIR(OP -> <=) = {<=}
+	DIR(OP -> >=) = {>=}
+	DIR(OP -> ==) = {==}
+	DIR(OP -> !=) = {!=}
+	
