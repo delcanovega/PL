@@ -128,7 +128,7 @@ public class AnalizadorSintacticoTiny {
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
-					ClaseLexica.PCOMA, ClaseLexica.EOF);
+					ClaseLexica.PCOMA);
 		}
 	}
 
@@ -147,7 +147,7 @@ public class AnalizadorSintacticoTiny {
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
 					ClaseLexica.MENOS, ClaseLexica.NOT, ClaseLexica.PAB,
-					ClaseLexica.IDEN, ClaseLexica.NUM, ClaseLexica.TRUE,
+					ClaseLexica.IDEN, ClaseLexica.NUMERO, ClaseLexica.TRUE,
 					ClaseLexica.FALSE);
 		}
 	}
@@ -189,7 +189,7 @@ public class AnalizadorSintacticoTiny {
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
 					ClaseLexica.MENOS, ClaseLexica.NOT, ClaseLexica.PAB,
-					ClaseLexica.IDEN, ClaseLexica.NUM, ClaseLexica.TRUE,
+					ClaseLexica.IDEN, ClaseLexica.NUMERO, ClaseLexica.TRUE,
 					ClaseLexica.FALSE);
 		}
 	}
@@ -233,7 +233,7 @@ public class AnalizadorSintacticoTiny {
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
 					ClaseLexica.MENOS, ClaseLexica.NOT, ClaseLexica.PAB,
-					ClaseLexica.IDEN, ClaseLexica.NUM, ClaseLexica.TRUE,
+					ClaseLexica.IDEN, ClaseLexica.NUMERO, ClaseLexica.TRUE,
 					ClaseLexica.FALSE);
 		}
 	}
@@ -280,7 +280,7 @@ public class AnalizadorSintacticoTiny {
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
 					ClaseLexica.MENOS, ClaseLexica.NOT, ClaseLexica.PAB,
-					ClaseLexica.IDEN, ClaseLexica.NUM, ClaseLexica.TRUE,
+					ClaseLexica.IDEN, ClaseLexica.NUMERO, ClaseLexica.TRUE,
 					ClaseLexica.FALSE);
 		}
 	}
@@ -310,6 +310,12 @@ public class AnalizadorSintacticoTiny {
 		case PCE:
 		case PCOMA:
 		case EOF:
+		case NOT:
+		case PAB:
+		case IDEN:
+		case NUMERO:
+		case TRUE:
+		case FALSE:
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -336,9 +342,9 @@ public class AnalizadorSintacticoTiny {
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
-					ClaseLexica.POR, ClaseLexica.DIV, ClaseLexica.MENOS,
-					ClaseLexica.NOT, ClaseLexica.PAB, ClaseLexica.IDEN,
-					ClaseLexica.NUM, ClaseLexica.TRUE, ClaseLexica.FALSE);
+					ClaseLexica.MENOS, ClaseLexica.NOT, ClaseLexica.PAB,
+					ClaseLexica.IDEN, ClaseLexica.NUMERO, ClaseLexica.TRUE,
+					ClaseLexica.FALSE);
 		}
 	}
 
@@ -363,9 +369,8 @@ public class AnalizadorSintacticoTiny {
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
-					ClaseLexica.POR, ClaseLexica.DIV, ClaseLexica.MENOS,
-					ClaseLexica.NOT, ClaseLexica.PAB, ClaseLexica.IDEN,
-					ClaseLexica.NUM, ClaseLexica.TRUE, ClaseLexica.FALSE);
+					ClaseLexica.PAB, ClaseLexica.IDEN, ClaseLexica.NUMERO,
+					ClaseLexica.TRUE, ClaseLexica.FALSE);
 		}
 	}
 
@@ -389,7 +394,6 @@ public class AnalizadorSintacticoTiny {
 		case NOEQUIV:
 			empareja(ClaseLexica.NOEQUIV);
 			break;
-
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
 					ClaseLexica.MENOR, ClaseLexica.MAYOR,
