@@ -1,0 +1,5 @@
+Desde la raíz del proyecto ejecutar:
+
+	java -cp lib/JLex.jar JLex.Main src/alex/Tiny.l
+	
+Se generará un archivo Tiny.l.java al que habrá que renombrar como AnalizadorLexicoTiny.java

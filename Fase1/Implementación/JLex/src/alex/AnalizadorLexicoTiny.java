@@ -1,8 +1,7 @@
 package alex;
-import errors.GestionErroresTiny;
 
 
-public class AnalizadorLexicoTiny {
+class AnalizadorLexicoTiny {
 	private final int YY_BUFFER_SIZE = 512;
 	private final int YY_F = -1;
 	private final int YY_NO_STATE = -1;
@@ -14,12 +13,8 @@ public class AnalizadorLexicoTiny {
 	private final int YY_EOF = 65537;
 
   private ALexOperations ops;
-  private GestionErroresTiny errores;
   public String lexema() {return yytext();}
   public int fila() {return yyline+1;}
-  public void fijaGestionErrores(GestionErroresTiny errores) {
-    this.errores = errores;
-  }
 	private java.io.BufferedReader yy_reader;
 	private int yy_buffer_index;
 	private int yy_buffer_read;
@@ -30,7 +25,7 @@ public class AnalizadorLexicoTiny {
 	private boolean yy_at_bol;
 	private int yy_lexical_state;
 
-	public AnalizadorLexicoTiny (java.io.Reader reader) {
+	AnalizadorLexicoTiny (java.io.Reader reader) {
 		this ();
 		if (null == reader) {
 			throw (new Error("Error: Bad input stream initializer."));
@@ -38,7 +33,7 @@ public class AnalizadorLexicoTiny {
 		yy_reader = new java.io.BufferedReader(reader);
 	}
 
-	public AnalizadorLexicoTiny (java.io.InputStream instream) {
+	AnalizadorLexicoTiny (java.io.InputStream instream) {
 		this ();
 		if (null == instream) {
 			throw (new Error("Error: Bad input stream initializer."));

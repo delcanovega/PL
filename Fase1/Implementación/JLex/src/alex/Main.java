@@ -17,10 +17,8 @@ public class Main {
 				System.out.println(unidad);
 			} while (unidad.clase() != ClaseLexica.EOF);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -56,7 +56,6 @@ parentesisCierre = \)
 {separador}               {}
 {num}                	  {return ops.unidadNum();}
 {bool}					  {return ops.unidadBool();}
-{iden}			          {return ops.unidadId();}
 {numero}         		  {return ops.unidadNumero();}
 {true}					  {return ops.unidadTrue();}
 {false}					  {return ops.unidadFalse();}
@@ -78,4 +77,5 @@ parentesisCierre = \)
 {noEquivalente}           {return ops.unidadNoEquiv();}
 {parentesisApertura}      {return ops.unidadPAb();}
 {parentesisCierre}        {return ops.unidadPCe();}
+{iden}			          {return ops.unidadId();}
 [^]                       {ops.error();}  
