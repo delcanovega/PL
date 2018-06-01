@@ -2,7 +2,7 @@ package alex;
 import errors.GestionErroresTiny;
 
 
-public class AnalizadorLexicoTiny {
+public class AnalizadorLexicoTiny implements java_cup.runtime.Scanner {
 	private final int YY_BUFFER_SIZE = 512;
 	private final int YY_F = -1;
 	private final int YY_NO_STATE = -1;
@@ -294,7 +294,7 @@ public class AnalizadorLexicoTiny {
 "48,41,48:4,-1:6,48,-1:5,39,48,39,-1:3,48:6,-1:2,39,-1,39,48:4,42,48,-1:6,48" +
 ",-1:5,39,48,39,-1:3,43,48:5,-1:2,39,-1,39,48:6,-1:6,48,-1:5,39,48,39,-1");
 
-	public UnidadLexica yylex ()
+	public java_cup.runtime.Symbol next_token ()
 		throws java.io.IOException {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;
@@ -360,7 +360,7 @@ public class AnalizadorLexicoTiny {
 					case -6:
 						break;
 					case 6:
-						{ops.error();}
+						{errores.errorLexico(fila(),lexema());}
 					case -7:
 						break;
 					case 7:
@@ -460,7 +460,7 @@ public class AnalizadorLexicoTiny {
 					case -31:
 						break;
 					case 32:
-						{ops.error();}
+						{errores.errorLexico(fila(),lexema());}
 					case -32:
 						break;
 					case 34:
@@ -472,7 +472,7 @@ public class AnalizadorLexicoTiny {
 					case -34:
 						break;
 					case 36:
-						{ops.error();}
+						{errores.errorLexico(fila(),lexema());}
 					case -35:
 						break;
 					case 38:

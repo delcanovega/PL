@@ -1,0 +1,11 @@
+Primero generar el analizador léxico de la misma forma que en la fase 1:
+
+	Desde la raíz del proyecto ejecutar:
+
+		java -cp lib/JLex.jar JLex.Main src/alex/Tiny.l
+	
+	Se generará un archivo Tiny.l.java al que habrá que renombrar como AnalizadorLexicoTiny.java
+	
+Después generar el analizador sintáctico, los símbolos y el parser:
+
+	java -cp lib/cup.jar java_cup.Main -parser src/asint/AnalizadorSintacticoTiny -symbols src/asint/ClaseLexica -nopositions src/asint/Tiny.cup 
