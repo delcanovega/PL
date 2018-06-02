@@ -1,6 +1,8 @@
 # Sintaxis abstracta
 
-## Gramática original (Fase 2)
+## 1.   Obtención de funciones costructoras
+
+### 1.1 Gramática original (Fase 2)
 
     S  -> Ds && Is
 
@@ -22,7 +24,7 @@
 
     OP -> < | > | <= | >= | == | !=
 
-### Simplificación de la gramática
+### 1.2 Simplificación de la gramática
 
     S -> Ds && Is
 
@@ -36,7 +38,7 @@
          E < E | E > E | E <= E | E >= E | E == E | E != E |
          -E | not E | identificador | numReal | true | false | (E)
 
-## Constructoras
+### 1.3 Funciones constructoras
 
 | Regla | Constructora |
 |-------|--------------|
@@ -65,3 +67,198 @@
 | E -> numReal | **real: string** -> E |
 | E -> true | **true: string** -> E |
 | E -> false | **false: string** -> E |
+
+## 2.   Sintaxis abstracta (Diagrama de clases)
+
+((imagen))
+
+## 3.   Gramática de atributos
+
+    S  -> Ds && Is
+      S.a = decIns(Ds.a, Is.a)
+
+    Ds -> D
+      Ds.a = dSimple(D.tipo, D.iden)
+    Ds -> D; Ds
+      Ds.a = dCompuesta(Ds'.a, D.tipo, D.iden)
+    D  -> T identificador
+      D.tipo = T.a
+      D.iden = identificador.lex
+    T  -> num
+      T.a = tNum()
+    T  -> bool
+      T.a = tBool()
+
+    Is -> I
+      Is.a = iSimple(I.iden, I.exp)
+    Is -> I; Is
+      Is.a = iCompuesta(Is'.a, I.iden, I.exp)
+    I  -> identificador = E0
+      I.iden = identificador.lex
+      I.exp = E0.a
+
+    E0 -> E0 + E1
+      E0.a = suma(E0'.a, E1.a)
+    E0 -> E0 - E1
+      E0.a = resta(E0'.a, E1.a)
+    E0 -> E1
+      E0.a = E1.a
+    E1 -> E2 and E1
+      E1.a = and(E2.a, E1'a)
+    E1 -> E2 or E2
+      E1.a = or(E2.a, E2'.a)
+    E1 -> E2
+      E1.a = E2.a
+    E2 -> E3 OP E3
+      E2.a = mkexp(OP.op, E3.a, E3'.a)
+    E2 -> E3
+      E2.a = E3.a
+    E3 -> E3 * E4
+      E3.a = mul(E3'.a, E4.a)
+    E3 -> E3 / E4
+      E3.a = div(E3'.a, E4.a)
+    E3 -> E4
+      E3.a = E4.a
+    E4 -> - E4
+      E4.a = neg(E4'.a)
+    E4 -> not E5
+      E4.a = not(E5.a)
+    E4 -> E5
+      E4.a = E5.a
+    E5 -> (E0)
+      E5.a = E0.a
+    E5 -> identificador
+      E5.a = id(identificador.lex)
+    E5 -> numReal
+      E5.a = numReal(numReal.lex)
+    E5 -> true
+      E5.a = true(true.lex)
+    E5 -> false
+      E5.a = false(false.lex)
+
+    OP -> <
+      OP.op = "<"
+    OP -> >
+      OP.op = ">"
+    OP -> <=
+      OP.op = "<="
+    OP -> >=
+      OP.op = ">="
+    OP -> ==
+      OP.op = "=="
+    OP -> !=
+      OP.op = "!="
+
+### 3.1 Función `mkexp()`
+
+    fun mkexp(op, opnd1, opnd2) {
+        switch(op) {
+            "<" => return menor(opnd1, opnd2)
+            ">" => return mayor(opnd1, opnd2)
+            "<=" => return menorIg(opnd1, opnd2)
+            ">=" => return mayorIg(opnd1, opnd2)
+            "==" => return equiv(opnd1, opnd2)
+            "!=" => return noEquiv(opnd1, opnd2)
+        }
+    }
+
+## 4. Acondicionamiento para implementación descendente
+
+    S  -> Ds && Is
+      S.a = decIns(Ds.a, Is.a)
+
+    Ds -> D FD
+      FD.ah = dSimple(D.tipo, D.iden)
+      Ds.a = FD.a
+    D  -> T identificador
+      D.tipo = T.a
+      D.iden = identificador.lex
+    FD -> epsilon
+      FD.a = FD.ah
+    FD -> ; Ds
+      FD.a = Ds.a
+    T  -> num
+      T.a = tNum()
+    T  -> bool
+      T.a = tBool()
+
+    Is -> I FI
+      FI.ah = iSimple(I.iden, I.exp)
+      Is.a = FI.a
+    I  -> identificador = E0
+      I.iden = identificador.lex
+      I.exp = E0.a
+    FI -> epsilon
+      FI.a = FI.ah
+    FI -> ; Is
+      FI.a = Is.a
+
+    E0  -> E1 E0'
+      E0'.ah = E1.a
+      E0.a = E0'.a
+    E0' -> + E1 E0'
+      E0'_.ah = suma(E0'.ah, E1.a)
+      E0'.a = E0'_.a
+    E0' -> - E1 E0'
+      E0'_.ah = resta(E0'.ah, E1.a)
+      E0'.a = E0'_.a
+    E0' -> epsilon
+      E0'.a = E0'.ah
+    E1  -> E2 FE1
+      FE1.ah = E2.a
+      E1.a = FE1.a
+    FE1 -> and E1 FE1
+      FE1_.ah = and(FE1.ah, E1.a)
+      FE1.a = FE1_.a
+    FE1 -> or E2 FE1
+      FE1_.ah = or(EF1.ah, E1.a)
+      FE1.a = FE1_.a
+    FE1 -> epsilon
+      FE1.a = FE1.ah
+    E2  -> E3 FE2
+      FE2.ah = E3.a
+      E2.a = FE2.a
+    FE2 -> OP E3
+      FE2.a = mkexp(OP.op, FE2.ah, E3.a)
+    FE2 -> epsilon
+      FE2.a = FE2.ah
+    E3  -> E4 E3'
+      E3'.ah = E4.a
+      E3.a = E3'.a
+    E3' -> * E4 E3'
+      E3'_.ah = mul(E3'.ah, E4.a)
+      E3'.a = E3'_.a
+    E3' -> / E4 E3'
+      E3'_.ah = div(E3'.ah, E4.a)
+      E3'.a = E3'_.a
+    E3' -> epsilon
+      E3'.a = E3'.ah
+    E4 -> - E4
+      E4.a = neg(E4'.a)
+    E4 -> not E5
+      E4.a = not(E5.a)
+    E4 -> E5
+      E4.a = E5.a
+    E5 -> (E0)
+      E5.a = E0.a
+    E5 -> identificador
+      E5.a = id(identificador.lex)
+    E5 -> numReal
+      E5.a = numReal(numReal.lex)
+    E5 -> true
+      E5.a = true(true.lex)
+    E5 -> false
+      E5.a = false(false.lex)
+
+    OP -> <
+      OP.op = "<"
+    OP -> >
+      OP.op = ">"
+    OP -> <=
+      OP.op = "<="
+    OP -> >=
+      OP.op = ">="
+    OP -> ==
+      OP.op = "=="
+    OP -> !=
+      OP.op = "!="
