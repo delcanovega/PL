@@ -5,7 +5,7 @@ public class DSimple extends Ds {
 	private T tipo;
 	private String id;
 
-	public DSimple(T tipo, String id) {
+	public DSimple(String id, T tipo) {
 		this.tipo = tipo;
 		this.id = id;
 	}

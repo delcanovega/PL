@@ -1,0 +1,83 @@
+options  {
+  STATIC=false;
+}  
+PARSER_BEGIN(ConstructorASTTiny)
+package constructorast;
+
+import ast.*;
+
+
+public class ConstructorASTTiny {
+   private ASTiny as = new ASTiny();
+   private final static int MAS=0;
+   private final static int MENOS=1;
+   private final static int POR=2;
+   private final static int DIV=3;
+   private E mkexp(int op, E opnd1, E opnd2){
+     switch(op) {
+      case MAS: return as.suma(opnd1,opnd2);
+      case MENOS: return as.resta(opnd1,opnd2);
+      case POR: return as.mul(opnd1,opnd2);
+      case DIV: return as.div(opnd1,opnd2);
+      default: return null;
+     }
+   }
+}
+PARSER_END(ConstructorASTTiny)
+  TOKEN:{<#letra:["a"-"z","A"-"Z"]>}
+  TOKEN:{<#digito:["0"-"9"]>}
+  TOKEN:{<#parteDecimal: "."(<digito>)+>}
+  TOKEN:{<#parteExponencial: ("e"|"E")(["+","-"])?(<digito>)+>}
+  SKIP:{<["\t"," ","\r","\b","\n"]>}  
+  SKIP:{<"#"(~["\n"])*>}
+  TOKEN:{<num: "num">}
+  TOKEN:{<bool: "bool">}
+  TOKEN:{<ttrue: "true">}
+  TOKEN:{<ffalse: "false">}
+  TOKEN:{<and: "and">}
+  TOKEN:{<or: "or">}
+  TOKEN:{<not: "not">}
+  TOKEN:{<identificador:<letra>(<letra>|<digito>|"_")*>}
+  TOKEN:{<numero: (["+","-"])?(<digito>)+(<parteDecimal>)?(<parteExponencial>)?>}
+  
+  S Sp()    : {S ast;} {ast=S() <EOF> {return ast;}}
+  S S()		: {ResulDs ds; ResulIs is;} {ds = Ds() "&&" is=Is() {return as.DecIns(ds.a(), is.a());}}	
+  ResulDs Ds()	: {ResulDs rds; ResulD d;} {d=D() {return as.dSimple(d.id(), d.tipo());} |
+  					d=D() ";" rds=Ds() {return as.dCompuesta(rds.a(), d.id(), d.tipo());}}
+  ResulD D(): {Token iden; T tipo;} {tipo=T() iden=<identificador> {return new ResulD(iden.id(), tipo.a());}}
+  T T()		: {Token t;} {t=<bool> {return new TBool();} |
+  						t=<num> {return new TNum();}
+  ResulIs Is()	: {ResulIs is; ResulI i;} {i=I() {return as.iSimple(i.id(), i.exp());} | 
+  					i=I() ";" is=Is() {return as.iCompuesta(is.a(), i.id(), i.exp());}}
+  ResulI I()	: {Token iden; E e;} {iden=<identificador> "=" e=E0() {return new ResulI(iden.id(), e.a());}}
+  E E0()	: {}
+  
+  
+  
+  
+  LDs LDs()  : {ResulD d; LDs aOfRLDs;} {d=D() aOfRLDs=RLDs(as.cSimple(d.id(),d.exp())) 
+                       {return aOfRLDs;}}
+  LDs RLDs(LDs ahOfRLDs0) : {ResulD d; LDs aOfRLDs1;} 
+                                {"," d=D() aOfRLDs1=RLDs(as.cCompuesta(ahOfRLDs0,d.id(),d.exp())) 
+                                  {return aOfRLDs1;}| 
+                                  {return ahOfRLDs0;} }
+  ResulD D()    : {Token id; E aOfE0;} {id=<identificador> "=" aOfE0=E0() 
+                           {return new ResulD(id.image,aOfE0);}}
+  E E0()   : {E aOfE1,aOfRE0;} {aOfE1=E1() aOfRE0=RE0(aOfE1) {return aOfRE0;}}
+  E RE0(E ahOfRE0)  : {int op0; E aOfE1; E aOfRE0;} 
+                            {op0=OP0() aOfE1=E1() aOfRE0=RE0(mkexp(op0,ahOfRE0,aOfE1)) 
+                                  {return aOfRE0;}| 
+                                   {return ahOfRE0;} }
+  E E1()   : {E aOfE2,aOfRE1;} {aOfE2=E2() aOfRE1=RE1(aOfE2) {return aOfRE1;}}
+  E RE1(E ahOfRE1)  : {int op1; E aOfE2; E aOfRE1;} 
+                            {op1=OP1() aOfE2=E2() aOfRE1=RE1(mkexp(op1,ahOfRE1,aOfE2)) 
+                                  {return aOfRE1;}| 
+                                   {return ahOfRE1;} }
+  E E2()   : {Token t; E aOfE0;} 
+                  {t=<numeroEntero> {return as.entero(t.image);} | 
+                  t=<numeroReal> {return as.real(t.image);}| 
+                  t=<identificador> {return as.id(t.image);} | 
+                  "(" aOfE0=E0() ")" {return aOfE0;}} 
+  int OP0()  : {} {"+" {return MAS;}| "-" {return MENOS;}}
+  int OP1()  : {} {"*" {return POR;}| "/" {return DIV;}}
+  
