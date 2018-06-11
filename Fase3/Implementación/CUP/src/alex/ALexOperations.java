@@ -99,7 +99,7 @@ public class ALexOperations {
 	}
 
 	public UnidadLexica unidadMenorIgual() {
-		return new UnidadLexicaUnivaluada(alex.fila(), ClaseLexica.MENORIGUAL, ">=");
+		return new UnidadLexicaUnivaluada(alex.fila(), ClaseLexica.MENORIGUAL, "<=");
 	}
 
 	public UnidadLexica unidadEnd() {
