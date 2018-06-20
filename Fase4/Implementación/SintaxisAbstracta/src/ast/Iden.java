@@ -1,10 +1,20 @@
 package ast;
 
-public class Iden extends E{
+public class Iden extends E {
+	
 	private String id;
+
 	public Iden(String id) {
-		this.id = id;   
+		this.id = id;
 	}
-	public String id() {return id;}
-	public TipoE tipo() {return TipoE.IDEN;}
+
+	@Override
+	public String id() {
+		return id;
+	}
+
+	@Override
+	public TipoE tipo() {
+		return TipoE.IDEN;
+	}
 }

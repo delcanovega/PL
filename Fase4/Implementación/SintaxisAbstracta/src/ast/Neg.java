@@ -1,7 +1,6 @@
 package ast;
 
-
-public class Neg extends EUn{
+public class Neg extends EUn {
 	
 	public Neg(E opnd){
 		super(opnd);

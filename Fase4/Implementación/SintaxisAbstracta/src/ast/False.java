@@ -1,7 +1,20 @@
 package ast;
 
-public class False extends E{
+public class False extends E {
 
-	public String id() {return "false";}
-	public TipoE tipo() {return TipoE.FALSE;}
+	private String id;
+	
+	public False() {
+		id = "false";
+	}
+	
+	@Override
+	public String id() {
+		return id;
+	}
+
+	@Override
+	public TipoE tipo() {
+		return TipoE.FALSE;
+	}
 }

@@ -1,6 +1,7 @@
 package ast; 
 
 public class ASTiny {
+	
 	public E suma(E opnd1, E opnd2) {return new Suma(opnd1,opnd2);}  
 	public E resta(E opnd1, E opnd2) {return new Resta(opnd1,opnd2);}  
 	public E mul(E opnd1, E opnd2) {return new Mul(opnd1,opnd2);}  
@@ -26,4 +27,5 @@ public class ASTiny {
 	public Is iSimple(String id, E exp) {return new ISimple(id, exp);}
 	public Is iCompuesta(Is ins, String id, E exp) {return new ICompuesta(ins, id, exp);}
 	public S decIns(Ds decs, Is ins) {return new DecIns(decs, ins);}
+	
 }

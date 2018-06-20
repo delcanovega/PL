@@ -1,8 +1,20 @@
 package ast;
 
-public class True extends E{
+public class True extends E {
+	
+	private String id;
+	
+	public True() {
+		id = "true";
+	}
 
-	public String id() {return "true";}
-	public TipoE tipo() {return TipoE.TRUE;}
+	@Override
+	public String id() {
+		return id;
+	}
+
+	@Override
+	public TipoE tipo() {
+		return TipoE.TRUE;
+	}
 }
-

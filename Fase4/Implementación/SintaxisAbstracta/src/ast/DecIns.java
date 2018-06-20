@@ -1,6 +1,6 @@
 package ast;
 
-public class DecIns extends S{
+public class DecIns extends S {
 	private Ds decs;
 	private Is ins;
 	
