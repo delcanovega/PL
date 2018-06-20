@@ -10,5 +10,10 @@ public class Suma extends EBin {
 	public TipoE tipo() {
 		return TipoE.SUMA;
 	}
+	
+	@Override
+	public String toString() {
+		return "suma{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
 
 }

@@ -10,5 +10,10 @@ public class Mayor extends EBin {
 	public TipoE tipo() {
 		return TipoE.MAYOR;
 	}
+	
+	@Override
+	public String toString() {
+		return "mayor{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
 
 }

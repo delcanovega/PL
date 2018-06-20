@@ -17,4 +17,10 @@ public class False extends E {
 	public TipoE tipo() {
 		return TipoE.FALSE;
 	}
+
+	@Override
+	public String toString() {
+		return id;
+	}
+	
 }

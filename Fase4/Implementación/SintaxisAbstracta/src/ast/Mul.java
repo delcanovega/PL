@@ -10,5 +10,10 @@ public class Mul extends EBin {
 	public TipoE tipo() {
 		return TipoE.MUL;
 	}
+	
+	@Override
+	public String toString() {
+		return "mul{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
 
 }

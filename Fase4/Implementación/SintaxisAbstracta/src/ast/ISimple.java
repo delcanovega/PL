@@ -25,4 +25,9 @@ public class ISimple extends Is {
 		return TipoIs.ISIMPLE;
 	}
 
+	@Override
+	public String toString() {
+		return "ISimple(=){ " + id + ", " + exp.toString() + "}";
+	}
+
 }

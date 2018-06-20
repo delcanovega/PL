@@ -10,5 +10,10 @@ public class Or extends EBin {
 	public TipoE tipo() {
 		return TipoE.OR;
 	}
+	
+	@Override
+	public String toString() {
+		return "or{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
 
 }

@@ -2,8 +2,8 @@ package ast;
 
 public abstract class EBin extends E {
 	
-	private E opnd1;
-	private E opnd2;
+	protected E opnd1;
+	protected E opnd2;
 
 	public EBin(E opnd1, E opnd2) {
 		this.opnd1 = opnd1;

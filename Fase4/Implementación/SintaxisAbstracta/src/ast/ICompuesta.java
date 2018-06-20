@@ -32,4 +32,9 @@ public class ICompuesta extends Is {
 		return TipoIs.ICOMPUESTA;
 	}
 
+	@Override
+	public String toString() {
+		return "ICompuesta{ ISimple(=){ " + id + ", " + exp.toString() + "}; , " + ins.toString() + "}";
+	}
+
 }

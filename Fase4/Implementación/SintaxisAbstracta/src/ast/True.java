@@ -17,4 +17,9 @@ public class True extends E {
 	public TipoE tipo() {
 		return TipoE.TRUE;
 	}
+	
+	@Override
+	public String toString() {
+		return id;
+	}
 }

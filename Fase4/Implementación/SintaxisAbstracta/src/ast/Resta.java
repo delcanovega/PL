@@ -10,5 +10,10 @@ public class Resta extends EBin {
 	public TipoE tipo() {
 		return TipoE.RESTA;
 	}
+	
+	@Override
+	public String toString() {
+		return "resta{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
 
 }

@@ -10,5 +10,10 @@ public class NoEquiv extends EBin {
 	public TipoE tipo() {
 		return TipoE.NOEQUIV;
 	}
+	
+	@Override
+	public String toString() {
+		return "noEquiv{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
 
 }

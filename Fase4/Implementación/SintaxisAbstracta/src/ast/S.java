@@ -11,4 +11,6 @@ public abstract class S {
 	}
 
 	public abstract TipoS tipo();
+	
+	public abstract String toString();
 }

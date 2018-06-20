@@ -23,4 +23,7 @@ public abstract class E {
 	}
 
 	public abstract TipoE tipo();
+	
+	public abstract String toString();
+
 }

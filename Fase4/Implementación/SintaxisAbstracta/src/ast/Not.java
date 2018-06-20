@@ -10,5 +10,10 @@ public class Not extends EUn {
 	public TipoE tipo() {
 		return TipoE.NOT;
 	}
+	
+	@Override
+	public String toString() {
+		return "not{ " + opnd1.toString() + "}";
+	}
 
 }

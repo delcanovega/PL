@@ -10,5 +10,10 @@ public class Equiv extends EBin {
 	public TipoE tipo() {
 		return TipoE.EQUIV;
 	}
+	
+	@Override
+	public String toString() {
+		return "equiv{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
 
 }

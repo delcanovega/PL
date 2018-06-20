@@ -15,4 +15,7 @@ public abstract class Ds {
 	}
 	
 	public abstract TipoDs tipo();
+	
+	public abstract String toString();
+
 }

@@ -11,4 +11,9 @@ public class And extends EBin {
 		return TipoE.AND;
 	}
 
+	@Override
+	public String toString() {
+		return "and{ " + opnd1.toString() + ", " + opnd2.toString() + "}";
+	}
+
 }

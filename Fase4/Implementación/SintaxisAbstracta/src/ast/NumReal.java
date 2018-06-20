@@ -17,4 +17,9 @@ public class NumReal extends E {
 	public TipoE tipo() {
 		return TipoE.NUMREAL;
 	}
+	
+	@Override
+	public String toString() {
+		return v;
+	}
 }

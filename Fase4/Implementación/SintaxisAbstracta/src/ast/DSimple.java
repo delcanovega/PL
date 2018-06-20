@@ -24,4 +24,9 @@ public class DSimple extends Ds {
 	public TipoDs tipo() {
 		return TipoDs.DSIMPLE;
 	}
+
+	@Override
+	public String toString() {
+		return "DSimple{ " + tipo.toString() + ", " + id + "}";
+	}
 }

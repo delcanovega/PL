@@ -11,4 +11,9 @@ public class TBool extends T {
 		return TipoT.BOOL;
 	}
 
+	@Override
+	public String toString() {
+		return "bool";
+	}
+
 }

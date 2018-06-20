@@ -15,4 +15,7 @@ public abstract class Is {
 	}
 	
 	public abstract TipoIs tipo();
+	
+	public abstract String toString();
+
 }

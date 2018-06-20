@@ -17,4 +17,9 @@ public class Iden extends E {
 	public TipoE tipo() {
 		return TipoE.IDEN;
 	}
+	
+	@Override
+	public String toString() {
+		return id;
+	}
 }

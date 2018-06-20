@@ -11,4 +11,9 @@ public class TNum extends T {
 		return TipoT.NUM;
 	}
 
+	@Override
+	public String toString() {
+		return "num";
+	}
+
 }
