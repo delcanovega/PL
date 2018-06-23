@@ -1,0 +1,81 @@
+options  {
+  STATIC=false;
+}  
+PARSER_BEGIN(ConstructorASTTiny)
+package constructorast;
+
+import ast.*;
+
+
+public class ConstructorASTTiny {
+   private ASTiny as = new ASTiny();
+   private final static int MAYOR=0;
+   private final static int MENOR=1;
+   private final static int MAYORIGUAL=2;
+   private final static int MENORIGUAL=3;
+   private final static int EQUIV=4;
+   private final static int NOEQUIV=5;
+   private E mkexp(int op, E opnd1, E opnd2){
+     switch(op) {
+      case MENOR: return as.menor(opnd1,opnd2);
+      case MAYOR: return as.mayor(opnd1,opnd2);
+      case MENORIGUAL: return as.menorIgual(opnd1,opnd2);
+      case MAYORIGUAL: return as.mayorIgual(opnd1,opnd2);
+      case EQUIV: return as.equiv(opnd1,opnd2);
+      case NOEQUIV: return as.noEquiv(opnd1,opnd2);
+      default: return null;
+     }
+   }
+}
+PARSER_END(ConstructorASTTiny)
+  TOKEN:{<#letra:["a"-"z","A"-"Z"]>}
+  TOKEN:{<#digito:["0"-"9"]>}
+  TOKEN:{<#parteDecimal: "."(<digito>)+>}
+  TOKEN:{<#parteExponencial: ("e"|"E")(["+","-"])?(<digito>)+>}
+  SKIP:{<["\t"," ","\r","\b","\n"]>}  
+  SKIP:{<"#"(~["\n"])*>}
+  TOKEN:{<num: "num">}
+  TOKEN:{<bool: "bool">}
+  TOKEN:{<ttrue: "true">}
+  TOKEN:{<ffalse: "false">}
+  TOKEN:{<and: "and">}
+  TOKEN:{<or: "or">}
+  TOKEN:{<not: "not">}
+  TOKEN:{<identificador:<letra>(<letra>|<digito>|"_")*>}
+  TOKEN:{<numero: (["+","-"])?(<digito>)+(<parteDecimal>)?(<parteExponencial>)?>}
+  
+  S Sp()    : {S ast;} {ast=S() <EOF> {return ast;}}
+  S S()		: {ResulDs ds; ResulIs is;} {ds = Ds() "&&" is=Is() {return as.DecIns(ds.a(), is.a());}}	
+  ResulDs Ds()	: {ResulD d; ResulDs ds;} {d = D() {return as.dSimple(d.id(), d.tipo());} |
+  											d = D() ";" ds = Ds() {return as.dCompuesta(ds.a(),d.id(),d.tipo());}}
+  ResulD D(): {Token iden; T t;} {t = T() iden = <identificador> {return new ResulD(iden.id(), t.tipo());}}
+  T T()		: {Token t;} {t=<bool> {return new TBool();} |
+   						t=<num> {return new TNum();}}
+  ResulIs Is()	: {ResulI i; ResulIs is;} {i = I() {return as.iSimple(i.id(), i.exp());} |
+  											i = I() ";" is = Is() {return as.iCompuesta(is.a(), i.id(), i.exp());}}
+  ResulI I()	: {Token iden; E e;} {iden=<identificador> "=" e=E0() {return new ResulI(iden.id(), e);}}
+  E E0()	: {E e01, e1;} {e01 = E0() "+" e1 = E1() {return as.suma(e01, e1);} |
+  							e01 = E0() "-" e1 = E1() {return as.resta(e01, e1);} |
+  							e1 = E1() {return e1;}}
+  E E1()	: {E e2, e12;} {e2 = E2() "and" e12 = E1() {return as.and(e2, e12);} |
+  							e2 = E2() "or" e12 = E2() {return as.or(e2, e12);} |
+  							e2 = E2() {return e2;}}
+  E E2()	: {E e3, e31;} {e3 = E3() op = OP() e31 = E3() {return mkexp(op, e3, e31);} |
+  							e3 = E3() {return e3;}}
+  E E3()	: {E e31, e4;} {e31 = E3() "*" e4 = E4() {return as.mul(e31, e4);} |
+  							e31 = E3() "/" e4 = E4() {return as.div(e31, e4);} |
+  							e4 = E4() {return e4;}}
+  E E4()	: {E e45;} {"-" e45 = E4() {return as.neg(e45);} |
+  						"not" e45 = E5() {return as.not(e45);} |
+  						e45 = E5() {return e45;}}
+  E E5()	: {Token t; E e0;} {"(" e0 = E0() ")" {return e0;} |
+  								t = <identificador> {return as.id(t.image);} |
+  								t = <numero> {return as.numReal(t.image);} |
+  								t = <ttrue> {return as.eTrue();} |
+  								t = <ffalse> {return as.eFalse();}}							
+  int OP()	: {} {"<" {return MENOR;} |
+  					">" {return MAYOR;} |
+  					"<=" {return MENORIGUAL;} |
+  					">=" {return MAYORIGUAL;} |
+  					"==" {return EQUIV;} |
+  					"!=" {return NOEQUIV;}}							
