@@ -1,5 +1,5 @@
 package constructorast;
-import astModel.E;
+import ast.E;
 
 public class ResulI {
 
