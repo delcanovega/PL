@@ -209,12 +209,10 @@
     E1  -> E2 FE1
       FE1.ah = E2.a
       E1.a = FE1.a
-    FE1 -> and E1 FE1
-      FE1_.ah = and(FE1.ah, E1.a)
-      FE1.a = FE1_.a
-    FE1 -> or E2 FE1
-      FE1_.ah = or(EF1.ah, E1.a)
-      FE1.a = FE1_.a
+    FE1 -> and E1
+      FE1.a = and(FE1.ah, E1.a)
+    FE1 -> or E2
+      FE1.a = or(FE1.ah, E2.a)
     FE1 -> epsilon
       FE1.a = FE1.ah
     E2  -> E3 FE2
