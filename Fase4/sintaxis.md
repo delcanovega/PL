@@ -173,8 +173,9 @@
     D  -> T identificador
       D.tipo = T.a
       D.iden = identificador.lex
-    FD -> ; Ds
-        FD.a = dCompuesta(FD.ah, Ds.tipo, Ds.iden)
+    FD -> ; D FD
+        FD_.a = dCompuesta(FD.ah, D.tipo, D.iden)
+        FD.a = FD_.a
     FD -> epsilon
         FD.a = FD.ah
     T  -> num
@@ -188,8 +189,9 @@
     I  -> identificador = E0
       I.iden = identificador.lex
       I.exp = E0.a
-    FI -> ; Is
-        FI.a = iCompuesta(FI.ah, Is.tipo, Is.iden)
+    FI -> ; I FI
+        FI_.a = iCompuesta(FI.ah, I.tipo, I.iden)
+        FI.a = FI_.a
     FI -> epsilon
         FI.a = FI.ah
 
