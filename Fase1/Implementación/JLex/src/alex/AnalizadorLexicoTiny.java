@@ -379,11 +379,11 @@ class AnalizadorLexicoTiny {
 					case -12:
 						break;
 					case 12:
-						{return ops.unidadMenor();}
+						{return ops.unidadMayor();}
 					case -13:
 						break;
 					case 13:
-						{return ops.unidadMayor();}
+						{return ops.unidadMenor();}
 					case -14:
 						break;
 					case 14:

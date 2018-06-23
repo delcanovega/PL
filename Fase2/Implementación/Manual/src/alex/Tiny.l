@@ -77,8 +77,8 @@ parentesisCierre = \)
 {and}       		      {return ops.unidadAnd();}
 {or}          			  {return ops.unidadOr();}
 {not} 					  {return ops.unidadNot();}
-{mayor}         		  {return ops.unidadMenor();}
-{menor}         		  {return ops.unidadMayor();}
+{mayor}         		  {return ops.unidadMayor();}
+{menor}         		  {return ops.unidadMenor();}
 {mayorIgual}			  {return ops.unidadMayorIgual();}
 {menorIgual}         	  {return ops.unidadMenorIgual();}
 {equivalente}         	  {return ops.unidadEquiv();}
