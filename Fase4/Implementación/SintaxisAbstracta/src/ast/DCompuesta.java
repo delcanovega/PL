@@ -34,6 +34,6 @@ public class DCompuesta extends Ds {
 
 	@Override
 	public String toString() {
-		return "DCompuesta{ DSimple{ " + tipo.toString() + ", " + id + "}; , " + decs.toString() + "}";
+		return "DCompuesta{ DSimple{ " + tipo.toString() + ", " + id + "}, " + decs.toString() + "}";
 	}
 }

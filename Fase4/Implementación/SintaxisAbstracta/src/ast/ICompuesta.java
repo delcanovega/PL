@@ -34,7 +34,7 @@ public class ICompuesta extends Is {
 
 	@Override
 	public String toString() {
-		return "ICompuesta{ ISimple(=){ " + id + ", " + exp.toString() + "}; , " + ins.toString() + "}";
+		return "ICompuesta{ ISimple(=){ " + id + ", " + exp.toString() + "}, " + ins.toString() + "}";
 	}
 
 }

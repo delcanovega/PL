@@ -24,6 +24,6 @@ public class DecIns extends S {
 
 	@Override
 	public String toString() {
-		return "decIns(&&){ " + decs.toString() + ", " + ins.toString() + " }";
+		return "decIns(&&){ " + decs.toString() + ", " + ins.toString() + "}";
 	}
 }
