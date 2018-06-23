@@ -8,5 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/jdelcano/Workspace/PL/Fase4/Implementación/ConstASTCUP/lib/cup.jar"/>
 	<classpathentry kind="lib" path="/home/jdelcano/Workspace/PL/Fase4/Implementación/ConstASTCUP/lib/JLex.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SintaxisAbstracta"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,6 +1,6 @@
 package alex;
 
-import errors.GestionErroresTiny;
+import errores.GestionErroresTiny;
 
 %%
 %cup

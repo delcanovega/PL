@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>SintaxisAbstracta</name>
+			<type>2</type>
+			<location>/home/jdelcano/Workspace/PL/Fase4/Implementación/SintaxisAbstracta</location>
+		</link>
+	</linkedResources>
 </projectDescription>

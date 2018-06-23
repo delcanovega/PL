@@ -1,11 +1,10 @@
 package constructorast;
 
 import java_cup.runtime.*;
-import alex.AnalizadorLexicoExp;
+import alex.AnalizadorLexicoTiny;
 import alex.UnidadLexica;
-import errors.GestionErroresExp;
-import ast.E;
-import ast.ASTiny;
+import errores.GestionErroresTiny;
+import ast.*;
 
 scan with {: return getScanner().next_token(); :};
 action code {:
@@ -23,12 +22,16 @@ init with {:
    alex.fijaGestionErrores(errores);
 :};
 
-terminal     NUM, BOOL, IDEN, NUMERO, PCOMA, END, TRUE, FALSE, 
+terminal     String NUM, BOOL, IDEN, NUMERO, PCOMA, END, TRUE, FALSE, 
 			 IGUAL, MAS, MENOS, POR, DIV, AND, OR, NOT,
 			 MAYOR, MENOR, MAYORIGUAL, MENORIGUAL, EQUIV, NOEQUIV,
 			 NEG, PAB, PCE;
 
-non terminal  S, Ds, D, T, Is, I, E0, E1, E2, E3, E4, E5, OP;
+non terminal  S;
+non terminal  Ds Ds, D;
+non terminal  T T;
+non terminal  Is Is, I;
+non terminal  E E0, E1, E2, E3, E4, E5; // OP;
 
 	S  ::= Ds: aDeDs END Is: aDeIs
 	    {: RESULT=as.decIns(aDeDs, aDeIs); :};
@@ -36,37 +39,69 @@ non terminal  S, Ds, D, T, Is, I, E0, E1, E2, E3, E4, E5, OP;
 	    {: RESULT=as.dSimple(aDeD.id(), aDeD.tipoT()); :};
 	Ds ::= D: aDeD PCOMA Ds: aDeDs
 		{: RESULT=as.dCompuesta(aDeDs, aDeD.id(), aDeD.tipoT()); :};
-	D  ::= T IDEN
-		{:  :};
-	T  ::= NUM | BOOL ;
-	Is ::= I | I PCOMA Is ;
-	I  ::= IDEN IGUAL E0 ;
-	E0 ::= E0 MAS E1 | E0 MENOS E1 | E1 ;
-	E1 ::= E2 AND E1 | E2 OR E2 | E2 ;
-	E2 ::= E3 OP E3 | E3 ;
-	E3 ::= E3 POR E4 | E3 DIV E4 | E4 ;
-	E4 ::= NEG E4 | NOT E5 | E5 ;
-	E5 ::= PAB E0 PCE | IDEN | NUMERO | TRUE | FALSE ;
-	OP ::= MENOR | MAYOR | MENORIGUAL | MAYORIGUAL | EQUIV | NOEQUIV ;
+	D  ::= T: aDeT IDEN: lexDeIden
+		{: RESULT=as.dSimple(lexDeIden, aDeT); :};
+	T  ::= NUM
+		{: RESULT=as.tNum(); :};
+	T  ::= BOOL
+		{: RESULT=as.tBool(); :};
+	Is ::= I: aDeI
+		{: RESULT=as.iSimple(aDeI.id(), aDeI.exp()); :};
+	Is ::= I: aDeI PCOMA Is: aDeIs
+		{: RESULT=as.iCompuesta(aDeIs, aDeI.id(), aDeI.exp()); :};
+	I  ::= IDEN: lexDeIden IGUAL E0: aDeE
+		{: RESULT=as.iSimple(lexDeIden, aDeE); :};
+	E0 ::= E0: aDeE0 MAS E1: aDeE1
+		{: RESULT=as.suma(aDeE0, aDeE1); :};
+	E0 ::= E0: aDeE0 MENOS E1: aDeE1
+		{: RESULT=as.resta(aDeE0, aDeE1); :};
+	E0 ::= E1: aDeE1
+		{: RESULT=aDeE1; :};
+	E1 ::= E2: aDeE2 AND E1: aDeE1
+		{: RESULT=as.and(aDeE2, aDeE1); :};
+	E1 ::= E2: aDeE2a OR E2: aDeE2b
+		{: RESULT=as.or(aDeE2a, aDeE2b); :};
+	E1 ::= E2: aDeE2
+		{: RESULT=aDeE2; :};
+	E2 ::= E3: aDeE3a MENOR E3: aDeE3b
+		{: RESULT=as.menor(aDeE3a, aDeE3b); :};
+	E2 ::= E3: aDeE3a MAYOR E3: aDeE3b
+		{: RESULT=as.mayor(aDeE3a, aDeE3b); :};
+	E2 ::= E3: aDeE3a MENORIGUAL E3: aDeE3b
+		{: RESULT=as.menorIgual(aDeE3a, aDeE3b); :};
+	E2 ::= E3: aDeE3a MAYORIGUAL E3: aDeE3b
+		{: RESULT=as.mayorIgual(aDeE3a, aDeE3b); :};
+	E2 ::= E3: aDeE3a EQUIV E3: aDeE3b
+		{: RESULT=as.equiv(aDeE3a, aDeE3b); :};
+	E2 ::= E3: aDeE3a NOEQUIV E3: aDeE3b
+		{: RESULT=as.noEquiv(aDeE3a, aDeE3b); :};
+//	E2 ::= E3: aDeE3a OP E3: aDeE3b
+//		{: RESULT=as.mkexp() :};
+	E2 ::= E3: aDeE3
+		{: RESULT=aDeE3; :};
+	E3 ::= E3: aDeE3 POR E4: aDeE4
+		{: RESULT=as.mul(aDeE3, aDeE4); :};
+	E3 ::= E3: aDeE3 DIV E4: aDeE4
+		{: RESULT=as.div(aDeE3, aDeE4); :};
+	E3 ::= E4: aDeE4
+		{: RESULT=aDeE4; :};
+	E4 ::= NEG E4: aDeE4
+		{: RESULT=as.neg(aDeE4); :};
+	E4 ::= NOT E5: aDeE5
+		{: RESULT=as.not(aDeE5); :};
+	E4 ::= E5: aDeE5
+		{: RESULT=aDeE5; :};
+	E5 ::= PAB E0: aDeE0 PCE
+		{: RESULT=aDeE0; :};
+	E5 ::= IDEN: lexDeIden
+		{: RESULT=as.id(lexDeIden); :};
+	E5 ::= NUMERO: lexDeNum
+		{: RESULT=as.numReal(lexDeNum); :};
+	E5 ::= TRUE
+		{: RESULT=as.eTrue(); :};
+	E5 ::= FALSE
+		{: RESULT=as.eFalse(); :};
+//	OP ::= MENOR | MAYOR | MENORIGUAL | MAYORIGUAL | EQUIV | NOEQUIV ;
 
-// ----------------------------------- //
-
-//terminal  MAS, POR, PAP, PCIERRE;
-//terminal String NUM;
-
-//non terminal  E Exp, Term, Fact;
-
-//Exp ::= Exp: aDeexp1 MAS Term: aDeterm 
-//   {: RESULT=as.suma(aDeexp1,aDeterm); :};
-//Exp ::= Term: aDeterm
-//   {: RESULT=aDeterm; :};
-//Term ::= Term: aDeterm1 POR Fact: aDefact 
-//   {: RESULT=as.mul(aDeterm1,aDefact); :};
-//Term ::= Fact: aDefact
-//   {: RESULT=aDefact; :};   
-//Fact ::= NUM: lexDeNum           
-//   {: RESULT = as.num(lexDeNum); :};
-//Fact ::= PAP Exp: aDeexp PCIERRE
-//   {: RESULT = aDeexp; :};
 
 

@@ -1,6 +1,6 @@
 package alex;
 
-import asint.ClaseLexica;
+import constructorast.ClaseLexica;
 
 public class ALexOperations {
 	
