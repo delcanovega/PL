@@ -45,34 +45,43 @@ PARSER_END(ConstructorASTTiny)
   TOKEN:{<numero: (["+","-"])?(<digito>)+(<parteDecimal>)?(<parteExponencial>)?>}
   
   S Sp()    : {S ast;} {ast=S() <EOF> {return ast;}}
-  S S()		: {ResulDs ds; ResulIs is;} {ds = Ds() "&&" is=Is() {return as.DecIns(ds.a(), is.a());}}	
-  ResulDs Ds()	: {ResulD d; ResulDs ds;} {d = D() {return as.dSimple(d.tipo(), d.id());} |
-  											d = D() ";" ds = Ds() {return as.dCompuesta(ds.a(), d.tipo(), d.id());}}
-  ResulD D(): {Token iden; T t;} {t = T() iden = <identificador> {return new ResulD(iden.id(), t.tipo());}}
+  S S()		: {ResulDs ds; ResulIs is;} {ds = Ds() "&&" is=Is() {return as.decIns(ds.a(), is.a());}}	
+  
+  ResulDs Ds()	: {ResulD d; Ds fd;} {d = D() fd = FD(as.dSimple(d.id(), d.tipo())) {return new ResulDs(fd);}}
+  Ds FD(Ds ds)	: {ResulD d; Ds fd;} {";" d = D() fd = FD(as.dCompuesta(ds, d.id(), d.tipo())) {return fd;} |
+  									{return ds;}}
+  ResulD D(): {Token iden; T t;} {t = T() iden = <identificador> {return new ResulD(iden.image, t);}}
   T T()		: {Token t;} {t=<bool> {return new TBool();} |
-   						t=<num> {return new TNum();}
-  ResulIs Is()	: {ResulI i; ResulIs is;} {i = I() {return as.iSimple(i.id(), i.exp())} |
-  											i = I() ";" is = Is() {return as.iCompuesta(is.a(), i.id(), i.exp());}}
-  ResulI I()	: {Token iden; E e;} {iden=<identificador> "=" e=E0() {return new ResulI(iden.id(), e);}}
-  E E0()	: {E e01, e1;} {e01 = E0() "+" e1 = E1() {return as.suma(e01, e1);} |
-  							e01 = E0() "-" e1 = E1() {return as.resta(e01, e1);} |
-  							e1 = E1() {return e1;}}
-  E E1()	: {E e2, e12;} {e2 = E2() "and" e12 = E1() {return as.and(e2, e12);} |
-  							e2 = E2() "or" e12 = E2() {return as.or(e2, e12);} |
-  							e2 = E2() {return e2;}}
-  E E2()	: {E e3, e31;} {e3 = E3() op = OP() e31 = E3() {return mkexp(op, e3, e31));} |
-  							e3 = E3() {return e3;}}
-  E E3()	: {E e31, e4;} {e31 = E3() "*" e4 = E4() {return as.mul(e31, e4);} |
-  							e31 = E3() "/" e4 = E4() {return as.div(e31, e4);} |
-  							e4 = E4() {return e4;}}
-  E E4()	: {E e45;} {"-" e45 = E4() {return as.neg(e45);} |
-  						"not" e45 = E5() {return as.not(e45);} |
-  						e45 = E5() {return e45;}}
+   						t=<num> {return new TNum();}}
+   						
+  ResulIs Is()	: {ResulI i; Is fi;} {i = I() fi = FI(as.iSimple(i.id(), i.exp())) {return new ResulIs(fi);}}
+  ResulI I()	: {Token iden; E e;} {iden=<identificador> "=" e=E0() {return new ResulI(iden.image, e);}}
+  Is FI(Is is)	: {ResulI i; Is fi;} {";" i = I() fi = FI(as.iCompuesta(is, i.id(), i.exp())) {return fi;} |
+  									{return is;}}
+  									 									
+  E E0()	: {E e1, e0;} {e1 = E1() e0 = RE0(e1) {return e0;}}
+  E RE0(E e): {E e1, e0;} {"+" e1 = E1() e0 = RE0(as.suma(e, e1)) {return e0;} |
+  							"-" e1 = E1() e0 = RE0(as.resta(e, e1)) {return e0;} |
+  							{return e;}}
+  E E1()	: {E e2, e1;} {e2 = E2() e1 = FE1(e2) {return e1;}}
+  E FE1(E e): {E e2;} {"and" e2 = E1() {return as.and(e, e2);} |
+  						"or" e2 = E2() {return as.or(e, e2);} |
+  						{return e;}}
+  E E2()	: {E e3, e2;} {e3 = E3() e2 = FE2(e3) {return e2;}}
+  E FE2(E e): {E e3; int op;} {op = OP() e3 = E3() {return mkexp(op, e, e3);} |
+  								{return e;}}
+  E E3()	: {E e4, e3;} {e4 = E4() e3 = RE3(e4) {return e3;}}
+  E RE3(E e): {E e4, e3;} {"*" e4 = E4() e3 = RE3(as.mul(e, e4)) {return e3;} |
+  							"/" e4 = E4() e3 = RE3(as.div(e, e4)) {return e3;} |
+  							{return e;}}
+  E E4()	: {E e;} {"-" e = E4() {return as.neg(e);} |
+  						"not" e = E5() {return as.not(e);} |
+  						e = E5() {return e;}}
   E E5()	: {Token t; E e0;} {"(" e0 = E0() ")" {return e0;} |
   								t = <identificador> {return as.id(t.image);} |
   								t = <numero> {return as.numReal(t.image);} |
   								t = <ttrue> {return as.eTrue();} |
-  								t = <tfalse> {return as.eFalse();}}							
+  								t = <ffalse> {return as.eFalse();}}							
   int OP()	: {} {"<" {return MENOR;} |
   					">" {return MAYOR;} |
   					"<=" {return MENORIGUAL;} |
