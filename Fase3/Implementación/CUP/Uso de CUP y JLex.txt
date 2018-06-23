@@ -8,4 +8,6 @@ Primero generar el analizador léxico de la misma forma que en la fase 1:
 	
 Después generar el analizador sintáctico, los símbolos y el parser:
 
-	java -cp lib/cup.jar java_cup.Main -parser src/asint/AnalizadorSintacticoTiny -symbols src/asint/ClaseLexica -nopositions src/asint/Tiny.cup 
+	java -cp lib/cup.jar java_cup.Main -parser AnalizadorSintacticoTiny -symbols ClaseLexica -nopositions src/asint/Tiny.cup 
+	
+	Una vez generado el parser y los símbolos, moverlos al paquete correspondiente (se generarán en la raíz)
