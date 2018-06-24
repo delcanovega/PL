@@ -1,0 +1,5 @@
+A partir del archivo Tiny.jj se generan todas clases Java necesarias para tener el analizador sintáctico funcional
+(excepto la clase Main). Al igual que para JLex, los cambios sobre la gramática deben hacerse sobre el archivo Tiny.jj
+y generar de nuevo las clases mediante el comando:
+    
+    java -cp lib/javacc.jar javacc src/asint/Tiny.jj
