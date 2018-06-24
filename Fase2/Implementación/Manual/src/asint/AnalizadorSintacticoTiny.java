@@ -83,7 +83,8 @@ public class AnalizadorSintacticoTiny {
 		switch (anticipo.clase()) {
 		case PCOMA:
 			empareja(ClaseLexica.PCOMA);
-			Ds();
+			D();
+			FD();
 			break;
 		case END:
 			break;
@@ -122,7 +123,8 @@ public class AnalizadorSintacticoTiny {
 		switch (anticipo.clase()) {
 		case PCOMA:
 			empareja(ClaseLexica.PCOMA);
-			Is();
+			I();
+			FI();
 			break;
 		case EOF:
 			break;
@@ -199,12 +201,10 @@ public class AnalizadorSintacticoTiny {
 		case AND:
 			empareja(ClaseLexica.AND);
 			E1();
-			RE1();
 			break;
 		case OR:
 			empareja(ClaseLexica.OR);
 			E2();
-			RE1();
 			break;
 		case MAS:
 		case MENOS:
