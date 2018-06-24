@@ -29,7 +29,8 @@ public class AnalizadorSintacticoTiny implements AnalizadorSintacticoTinyConstan
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case 17:{
       jj_consume_token(17);
-      Ds();
+      D();
+      FD();
       break;
       }
     default:
@@ -70,7 +71,8 @@ public class AnalizadorSintacticoTiny implements AnalizadorSintacticoTinyConstan
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case 17:{
       jj_consume_token(17);
-      Is();
+      I();
+      FI();
       break;
       }
     default:
@@ -114,13 +116,11 @@ public class AnalizadorSintacticoTiny implements AnalizadorSintacticoTinyConstan
     case and:{
       jj_consume_token(and);
       E1();
-      RE1();
       break;
       }
     case or:{
       jj_consume_token(or);
       E2();
-      RE1();
       break;
       }
     default:

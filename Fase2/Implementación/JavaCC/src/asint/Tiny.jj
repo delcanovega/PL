@@ -26,15 +26,15 @@ PARSER_END(AnalizadorSintacticoTiny)
   void S()    : {} {Ds() "&&" Is()} 
   void Ds()   : {} {D() FD()}  
   void D()	  : {} {T() <identificador>}
-  void FD()   : {} {";" Ds() | {}}
+  void FD()   : {} {";" D() FD() | {}}
   void T()    : {} {<num> | <bool>}
   void Is()   : {} {I() FI()}
   void I()    : {} {<identificador> "=" E0()}
-  void FI()	  : {} {";" Is() | {}}
+  void FI()	  : {} {";" I() FI() | {}}
   void E0()   : {} {E1() RE0()}
   void RE0()  : {} {"+" E1() RE0() | "-" E1() RE0() | {}}
   void E1()   : {} {E2() RE1()}
-  void RE1()  : {} {<and> E1() RE1() | <or> E2() RE1() | {}}
+  void RE1()  : {} {<and> E1() | <or> E2() | {}}
   void E2()   : {} {E3() RE2()}
   void RE2()  : {} {OP() E3() | {}}
   void E3()   : {} {E4() RE3()}
