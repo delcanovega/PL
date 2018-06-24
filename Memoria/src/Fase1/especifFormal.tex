@@ -1,0 +1,45 @@
+\begin{itemize}
+    \item \textbf{Definiciones auxiliares:}
+        \begin{flalign}
+            letra &\longrightarrow a|...|z|A|...|Z \\
+            digitoPositivo &\longrightarrow 1|...|9 \\
+            digito &\longrightarrow 0|digitoPositivo \\
+            parteDecimal &\longrightarrow .digito \textsuperscript{+} \\
+            parteExponencial &\longrightarrow (e|E) [+|-] digito \textsuperscript{+}
+        \end{flalign}
+  
+    \item \textbf{Definiciones de cadenas ignorables:}
+        \begin{flalign}
+            separador \longrightarrow \textbf{SP|TAB|NL}
+        \end{flalign}
+  
+    \item \textbf{Definiciones léxicas:}
+        \begin{flalign}
+            num &\longrightarrow \textbf{num} \\
+            bool &\longrightarrow \textbf{bool} \\
+             iden &\longrightarrow letra (letra|digito|\texttt{\_}) \textsuperscript{*} \\
+            pcoma &\longrightarrow ; \\
+            end &\longrightarrow \&\& \\
+            igual &\longrightarrow = \\
+            true &\longrightarrow \textbf{true} \\
+            false &\longrightarrow \textbf{false} \\
+            numero &\longrightarrow [+|-] digito \textsuperscript{+} [parteDecimal] [parteExponencial] \\
+             mas &\longrightarrow + \\
+            menos &\longrightarrow - \\
+            por &\longrightarrow * \\
+             div &\longrightarrow / \\
+            and &\longrightarrow \textbf{and} \\
+            or &\longrightarrow \textbf{or} \\
+            not &\longrightarrow \textbf{not} \\
+            mayor &\longrightarrow > \\
+            menor &\longrightarrow < \\
+            mayorIgual &\longrightarrow >= \\
+            menorIgual &\longrightarrow <= \\
+            equiv &\longrightarrow == \\
+            noEquiv &\longrightarrow != \\
+            parAb &\longrightarrow ( \\
+            parCe &\longrightarrow )
+        \end{flalign}
+
+
+\end{itemize}

@@ -1,0 +1,216 @@
+\subsection{Funciones constructoras}
+
+\subsubsection{Simplificación de la gramática}
+
+\begin{equation*}P =\left\{
+    \begin{array}{@{}ll@{}}
+    S \longrightarrow\ Ds\ \&\&\ Is\\
+    \\
+    Ds \longrightarrow\ T\ identificador\ |\ Ds;\ T\ identificador\\
+    T \longrightarrow\ num\ |\ bool\\
+    \\
+    Is \longrightarrow\ identificador\ =\ E\ |\ Is;\ identificador\ =\ E\\
+    E \longrightarrow\ E + E\ |\ E - E\ |\ E\ \text{and}\ E\ |\ E\ \text{or}\ E\ |\ E\ <\ E\ |\ E\ >\ E\ |\ E\ <=\ E\\
+    \ \ \ \ \ \ \ \ \ |\ E\ >=\ E\ |\ E\ ==\ E\ |\ E\ !=\ E\ |\ E * E\ |\ E / E\ |\ -E\ |\ \text{not}\ E\ |\ (E)\\
+    \ \ \ \ \ \ \ \ \ |\ identificador\ |\ numReal\ |\ \text{true}\ |\ \text{false}\\
+    \\
+    OP \longrightarrow\ <\ |\ >\ |\ <=\ |\ >=\ |\ ==\ |\ !=\\
+    \end{array}
+\right .
+\end{equation*}
+
+
+\subsubsection{Constructoras y tipos}
+
+\begin{tabular}{|p{6cm}||p{8cm}| }
+\hline
+    \textbf{Regla} & \textbf{Constructora}\\
+\hline
+    S $\longrightarrow$\ Ds\ \&\&\ Is\ & \textbf{decIns:}\ Ds\ x\ Is\ $\longrightarrow$\ S\ \\
+    Ds $\longrightarrow$\ T\ identificador\ & \textbf{dSimple:}\ T\ x\ \textbf{string} $\longrightarrow$\ Ds \\
+    Ds $\longrightarrow$\ Ds;\ T\ identificador & \textbf{dCompuesta:}\ Ds\ x\ T\ x\ \textbf{string} $\longrightarrow$\ Ds \\
+    T $\longrightarrow$\ num & \textbf{tNum: num} $\longrightarrow$\ T \\
+    T $\longrightarrow$\ bool & \textbf{tBool: bool} $\longrightarrow$\ T \\
+    Is $\longrightarrow$\ identificador\ =\ E & \textbf{iSimple: string}\ x\ E\ $\longrightarrow$\ Is \\
+    Is $\longrightarrow$\ Is;\ identificador\ =\ E & \textbf{iCompuesta:}\ Is\ x\ \textbf{string}\ x\ E\ $\longrightarrow$\ Is \\
+    E $\longrightarrow$\ E + E\ & \textbf{suma:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E - E\ & \textbf{resta:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E\ \text{and}\ E\ & \textbf{mul:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E\ \text{or}\ E\ & \textbf{div:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E $<$ E & \textbf{and:}\ E\ x\ E\ $\longrightarrow$\ E \\ 
+    E $\longrightarrow$\ E $>$ E & \textbf{or:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E $<$= E & \textbf{menor:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E $>$= E & \textbf{mayor:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E == E & \textbf{menorIg:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E\ !=\ E & \textbf{mayorIg:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E * E\ & \textbf{equiv:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ E / E\ & \textbf{noEquiv:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ - E\ & \textbf{neg:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ not\ E\ & \textbf{not:}\ E\ x\ E\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ identificador\ & \textbf{id: string}\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ numReal\ & \textbf{real: string}\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ true\ & \textbf{true}\ $\longrightarrow$\ E \\
+    E $\longrightarrow$\ false\ & \textbf{false}\ $\longrightarrow$\ E \\
+
+\hline
+\end{tabular}
+
+\newpage
+\subsection{Diagrama de clases}
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=0.39]{images/diagrama.png}
+    \end{figure}
+
+\newpage
+\subsection{Gramática de atributos para el constructor de árboles}
+\begin{tabular}{|p{6cm}||p{8cm}| }
+    \hline
+    S $\longrightarrow$\ Ds \&\& Is & S.a = decIns(Ds.a, Is.a) \\
+    \hline
+    Ds $\longrightarrow$\ D & Ds.a = dSimple(D.tipo, D.iden) \\
+    Ds $\longrightarrow$\ D; Ds & Ds.a = dCompuesta(Ds'.a, D.tipo, D.iden) \\
+    \hline
+    D $\longrightarrow$\ T identificador & D.tipo = T.a \\
+    & D.iden = identificador.lex\\
+    \hline  
+    T $\longrightarrow$\ num & T.a = tNum() \\
+    T $\longrightarrow$\ bool & T.a = tBool() \\
+    \hline
+    Is $\longrightarrow$\ I & Is.a = iSimple(I.iden, I.exp) \\
+    Is $\longrightarrow$\ I; Is & Is.a = iCompuesta(Is'.a, I.iden, I.exp) \\
+    \hline
+    I $\longrightarrow$\ identificador = E0 & I.iden = identificador.lex \\
+    & I.exp = E0.a \\
+    \hline
+    E0 $\longrightarrow$\ E0 + E1 & E0.a = suma(E0'.a, E1.a) \\
+    E0 $\longrightarrow$\ E0 - E1 & E0.a = resta(E0'.a, E1.a) \\
+    E0 $\longrightarrow$\ E1 & E0.a = E1.a \\
+    \hline
+    E1 $\longrightarrow$\ E2 and E1 & E1.a = and(E2.a, E1'a) \\
+    E1 $\longrightarrow$\ E2 or E2 & E1.a = or(E2.a, E2'.a) \\
+    E1 $\longrightarrow$\ E2 & E1.a = E2.a \\
+    \hline
+    E2 $\longrightarrow$\ E3 OP E3 & E2.a = mkexp(OP.op, E3.a, E3'.a) \\
+    E2 $\longrightarrow$\ E3 & E2.a = E3.a \\
+    \hline
+    E3 $\longrightarrow$\ E3 * E4 & E3.a = mul(E3'.a, E4.a)\\
+    E3 $\longrightarrow$\ E3 / E4 & E3.a = div(E3'.a, E4.a) \\
+    E3 $\longrightarrow$\ E4 & E3.a = E4.a\\
+    \hline
+    E4 $\longrightarrow$\ - E4 & E4.a = neg(E4'.a)\\
+    E4 $\longrightarrow$\ not E5 & E4.a = not(E5.a)\\
+    E4 $\longrightarrow$\ E5 & E4.a = E5.a \\
+    \hline
+    E5 $\longrightarrow$\ (E0) & E5.a = E0.a \\
+    E5 $\longrightarrow$\ identificador & E5.a = id(identificador.lex) \\
+    E5 $\longrightarrow$\ numReal & E5.a = numReal(numReal.lex) \\
+    E5 $\longrightarrow$\ true & E5.a = true() \\
+    E5 $\longrightarrow$\ false & E5.a = false() \\
+    \hline
+    OP $\longrightarrow$\ $<$ & OP.op = $<$ \\
+    OP $\longrightarrow$\ $>$ & OP.op = $>$ \\
+    OP $\longrightarrow$\ $<=$ & OP.op = $<=$ \\
+    OP $\longrightarrow$\ $>=$ & OP.op = $>=$ \\
+    OP $\longrightarrow$\ $==$ & OP.op = $==$ \\
+    OP $\longrightarrow$\ $!=$ & OP.op = $!=$ \\
+    \hline
+\end{tabular}
+    
+\subsubsection{Función \texttt{mkexp()}} 
+
+\begin{algorithm}[H]
+    \KwData{OP: op; E: opnd1, opnd2}
+    \KwResult{E}
+    \Switch{op} {
+        \Case{$<$} {\Return \texttt{menor(opnd1, opnd2)}}  
+        \Case{$>$} {\Return \texttt{mayor(opnd1, opnd2)}} 
+        \Case{$<=$} {\Return \texttt{menorIg(opnd1, opnd2)}} 
+        \Case{$>=$} {\Return \texttt{mayorIg(opnd1, opnd2)}} 
+        \Case{$==$} {\Return \texttt{equiv(opnd1, opnd2)}} 
+        \Case{$!=$} {\Return \texttt{noEquiv(opnd1, opnd2)}} 
+    }
+\end{algorithm}
+
+\subsection{Acondicionamiento para implementación descendente}
+
+\begin{tabular}{|p{6cm}||p{8cm}| }
+    \hline
+    S $\longrightarrow$\ Ds \&\& Is & S.a = decIns(Ds.a, Is.a) \\
+    \hline
+    Ds $\longrightarrow$\ D\ FD & FD.ah = dSimple(D.tipo, D.iden) \\
+    & Ds.a = FD.a\\
+    \hline
+    D $\longrightarrow$\ T\ identificador & D.tipo = T.a \\
+    & D.iden = identificador.lex\\
+    \hline  
+    FD $\longrightarrow$\ ; D\ FD\ & $FD_1 .a = dCompuesta(FD_0 .ah, Ds.tipo, Ds.iden)$\\
+    & $FD_0 .a = FD_1 .a$ \\
+    FD $\longrightarrow$\ epsilon & FD.a = FD.ah \\
+    \hline
+    T $\longrightarrow$\ num & T.a = tNum() \\
+    T $\longrightarrow$\ bool & T.a = tBool() \\
+    \hline
+    Is $\longrightarrow$\ I\ FI\ & FI.ah = iSimple(I.iden, I.exp) \\
+    & Is.a = FI.a \\
+    \hline
+    I $\longrightarrow$\ identificador = E0 & I.iden = identificador.lex \\
+    & I.exp = E0.a \\
+    \hline
+    FI $\longrightarrow$\ ; I\ FI & $FI_1 .a = iCompuesta(FI_0 .ah, Is.tipo, Is.iden)$ \\
+    & $FI_0 .a = FI_1 .a$ \\
+    FI $\longrightarrow$\ epsilon & FI.a = FI.ah \\
+    \hline
+\end{tabular}
+\newpage
+\begin{tabular}{|p{6cm}||p{8cm}| }
+    \hline
+    E0 $\longrightarrow$\ E1\ E0' & E0'.ah = E1.a \\
+    & E0.a = E0'.a \\
+    \hline
+    E0' $\longrightarrow$\ +\ E1\ E0' & $E0'_1.ah = suma(E0'_0.ah, E1.a)$\\
+    & $E0'_0 .a = E0'_1.a$ \\
+    E0' $\longrightarrow$\ -\ E1\ E0' & $E0'_1.ah = resta(E0'_0.ah, E1.a)$ \\
+    & $E0'_0.a = E0'_1.a$ \\
+    E0' $\longrightarrow$\ epsilon & E0'.a = E0'.ah \\
+    \hline
+    E1 $\longrightarrow$\ E2\ FE1 & FE1.ah = E2.a \\
+    & E1.a = FE1.a \\
+    \hline
+    FE1 $\longrightarrow$\ and\ E1 & FE1.a = and(FE1.ah, E1.a) \\
+    FE1 $\longrightarrow$\ or\ E2 & FE1.a = or(FE1.ah, E1.a) \\
+    FE1 $\longrightarrow$\ epsilon & FE1.a = FE1.ah \\
+    \hline
+    E2 $\longrightarrow$\ E3\ FE2 & FE2.ah = E3.a \\
+    & E2.a = FE2.a \\
+    \hline
+    FE2 $\longrightarrow$\ OP\ E3 & FE2.a = mkexp(OP.op, FE2.ah, E3.a) \\
+    FE2 $\longrightarrow$\ epsilon & FE2.a = FE2.ah \\
+    \hline
+    E3 $\longrightarrow$\ E4\ E3' & E3'.ah = E4.a \\
+    & E3.a = E3'.a\\ 
+    \hline
+    E3' $\longrightarrow$\ *\ E4\ E3' & $E3'_1.ah = mul(E3'_0.ah, E4.a)$ \\
+    & $E3'_0.a = E3'_1.a$ \\
+    E3' $\longrightarrow$\ /\ E4\ E3' & $E3'_1.ah = div(E3'_0.ah, E4.a)$\\
+    & $E3'_0.a = E3'_1.a$ \\
+    E3' $\longrightarrow$\ epsilon & E3'.a = E3'.ah \\
+    \hline
+    E4 $\longrightarrow$\ - E4 & E4.a = neg(E4'.a)\\
+    E4 $\longrightarrow$\ not E5 & E4.a = not(E5.a)\\
+    E4 $\longrightarrow$\ E5 & E4.a = E5.a \\
+    \hline
+    E5 $\longrightarrow$\ (E0) & E5.a = E0.a \\
+    E5 $\longrightarrow$\ identificador & E5.a = id(identificador.lex) \\
+    E5 $\longrightarrow$\ numReal & E5.a = numReal(numReal.lex) \\
+    E5 $\longrightarrow$\ true & E5.a = true() \\
+    E5 $\longrightarrow$\ false & E5.a = false() \\
+    \hline
+    OP $\longrightarrow$\ $<$ & OP.op = $<$ \\
+    OP $\longrightarrow$\ $>$ & OP.op = $>$ \\
+    OP $\longrightarrow$\ $<=$ & OP.op = $<=$ \\
+    OP $\longrightarrow$\ $>=$ & OP.op = $>=$ \\
+    OP $\longrightarrow$\ $==$ & OP.op = $==$ \\
+    OP $\longrightarrow$\ $!=$ & OP.op = $!=$ \\
+    \hline
+\end{tabular}

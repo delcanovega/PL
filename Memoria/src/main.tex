@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[fleqn]{amsmath}
+\setlength{\mathindent}{0pt}
+\usepackage{hyperref}
+\usepackage{algpseudocode}
+\usepackage[]{algorithm2e}
+
+\title{
+  Procesadores de Lenguajes\\
+  \large Memoria de actividades
+}
+
+\author{
+  Lidia Concepción Echeverría\\
+  \texttt{lidiacon@ucm.es}
+  \and
+  Juan Ramón del Caño Vega\\
+  \texttt{jdelcano@ucm.es}
+}
+
+\begin{document}
+
+\maketitle
+
+% Índice
+\tableofcontents
+
+\newpage
+\section*{Introducción}
+\paragraph{} La estructura del proyecto está dividida en fases. Cada fase contiene un directorio con todas las implementaciones requeridas.
+
+\paragraph{} En el caso de la fase 4, la sintaxis abstracta ha sido implementada una sola vez. Esta implementación es usada tanto por el constructor ascendente como por el descendente, por lo que cualquier cambio en ella se verá reflejado en ambas implementaciones. Por ello habrá que modificar el buildpath para que sea reconocida.
+
+\newpage
+
+\section{Primera fase}
+    \subsection{Clases léxicas}
+        \input{Fase1/clasesLex}
+    
+    \subsection{Especificación formal}
+        \input{Fase1/especifFormal}
+    
+    \newpage
+    \subsection{Diagrama de transiciones}
+        \begin{figure*}[!h]
+            \centering
+            \includegraphics[scale=0.45]{images/diagrama_estados.png}
+        \end{figure*}
+    
+    \subsection{Cómo usar JLex}
+    \label{sec:jlex}
+        \paragraph{} En la implementación mediante JLex, la clase del analizador léxico es generada desde el archivo \texttt{Tiny.l}, usando \texttt{JLex.jar}. Para realizar cualquier cambio, debe modificarse el léxico definido en \texttt{Tiny.l}, y volver a generar el analizador léxico, mediante el comando:
+        
+        \paragraph{} \texttt{java -cp /ruta/JLex.jar JLex.Main /ruta/Tiny.l}
+        
+        \paragraph{} Esto generará nuestro AnalizadorLexico bajo el nombre \texttt{Tiny.l.java} por lo que tendremos que renombrarlo antes de usarlo.
+
+\newpage
+\section{Segunda fase}
+    \subsection{Tabla de operadores}
+    \input{Fase2/tablaOp}
+    
+    \subsection{Gramática incontextual}
+    \label{sec:gic}
+    \input{Fase2/gramatica.tex}
+    
+    \subsection{Cómo usar Javacc}
+    \paragraph{} A partir del archivo \texttt{Tiny.jj} se generan todas clases Java necesarias para tener el analizador sintáctico funcional (excepto la clase Main). Al igual que para JLex, los cambios sobre la gramática deben hacerse sobre el archivo \texttt{Tiny.jj} y generar de nuevo las clases mediante el comando:
+    
+    \paragraph{}\texttt{java -cp lib/javacc.jar javacc src/asint/Tiny.jj}
+
+\newpage
+\section{Tercera fase}
+    \paragraph{} Para la implementación ascendente usaremos la \hyperref[sec:gic]{gramática original diseñada en la fase 2}.
+    
+    \subsection{Cómo usar CUP}
+        \paragraph{} Lo primero será generar el analizador léxico \hyperref[sec:jlex]{de la misma forma que en la fase 1}, con la excepción de que esta vez nuestro \texttt{Tiny.l} deberá estar modificado para soportar la integración con CUP.
+	
+        \paragraph{} Después debemos generar el analizador sintáctico, los símbolos y el parser:
+
+	    \paragraph{} \texttt{java -cp lib/cup.jar java\_cup.Main -parser AnalizadorSintacticoTiny -symbols ClaseLexica -nopositions src/asint/Tiny.cup}
+	
+	    \paragraph{} Una vez generado el parser y los símbolos, habrá que moverlos al paquete correspondiente (se generarán en la raíz).
+
+\newpage
+\section{Cuarta fase}
+\input{Fase4/sintaxis}
+
+\end{document}
